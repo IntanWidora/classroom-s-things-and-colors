@@ -1,0 +1,1382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My School Things & Colors - 3rd Grade Learning Media</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts for Kids -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brandYellow: '#FFD166',
+            brandBlue: '#118AB2',
+            brandGreen: '#06D6A0',
+            brandRed: '#EF476F',
+            brandPurple: '#8338EC',
+            brandOrange: '#FB5607',
+          },
+          fontFamily: {
+            fredoka: ['Fredoka', 'sans-serif'],
+            nunito: ['Nunito', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+  
+  <style>
+    body {
+      font-family: 'Nunito', sans-serif;
+      background-color: #F7F9FC;
+      background-image: radial-gradient(#E2E8F0 1.5px, transparent 1.5px);
+      background-size: 24px 24px;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+    
+    h1, h2, h3, button, .font-heading {
+      font-family: 'Fredoka', cursive, sans-serif;
+    }
+
+    /* Flip Card Animation */
+    .perspective {
+      perspective: 1000px;
+    }
+    .transform-style-3d {
+      transform-style: preserve-3d;
+    }
+    .backface-hidden {
+      backface-visibility: hidden;
+    }
+    .rotate-y-180 {
+      transform: rotateY(180deg);
+    }
+    
+    /* Playful Animations */
+    @keyframes floatSlow {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-8px) rotate(2deg); }
+    }
+    .animate-float {
+      animation: floatSlow 3s ease-in-out infinite;
+    }
+
+    @keyframes pulseGlow {
+      0%, 100% { transform: scale(1); filter: drop-shadow(0 0 5px rgba(255,209,102,0.6)); }
+      50% { transform: scale(1.05); filter: drop-shadow(0 0 15px rgba(255,209,102,0.9)); }
+    }
+    .animate-pulse-glow {
+      animation: pulseGlow 2s infinite;
+    }
+
+    /* Canvas styling for game */
+    #gameCanvas {
+      touch-action: none;
+    }
+  </style>
+</head>
+<body class="min-h-screen text-slate-800 flex flex-col justify-between">
+
+  <!-- TOP HEADER / NAVBAR -->
+  <header class="bg-white/90 backdrop-blur-md border-b-4 border-amber-300 sticky top-0 z-40 shadow-sm">
+    <div class="max-w-6xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-2">
+      <!-- Title & Mascot -->
+      <div class="flex items-center gap-3">
+        <div class="w-12 h-12 bg-amber-400 rounded-2xl flex items-center justify-center text-2xl shadow-md transform -rotate-3 animate-float">
+          🎒
+        </div>
+        <div>
+          <h1 class="text-xl md:text-2xl font-bold text-slate-800 leading-tight">My School Things & Colors</h1>
+          <p class="text-xs md:text-sm font-bold text-amber-600">English Media for 3rd Grade 🌟</p>
+        </div>
+      </div>
+
+      <!-- Quick Controls -->
+      <div class="flex items-center gap-2">
+        <button id="ttsToggleBtn" onclick="toggleAudio()" class="px-3 py-1.5 bg-sky-100 text-sky-700 hover:bg-sky-200 rounded-xl text-sm font-bold flex items-center gap-2 transition shadow-sm">
+          <i id="ttsIcon" class="fas fa-volume-up text-base"></i>
+          <span class="hidden sm:inline">Audio: On</span>
+        </button>
+        <div class="bg-amber-100 text-amber-800 px-3 py-1.5 rounded-xl font-bold text-sm flex items-center gap-1 border border-amber-200">
+          <i class="fas fa-star text-amber-500"></i>
+          <span id="globalStars">0</span> Stars
+        </div>
+      </div>
+    </div>
+
+    <!-- MAIN NAVIGATION TABS -->
+    <nav class="max-w-6xl mx-auto px-4 mt-1">
+      <div class="flex space-x-2 overflow-x-auto pb-2 scrollbar-none justify-start md:justify-center">
+        <button onclick="switchTab('materials')" id="tab-materials" class="nav-tab px-4 py-2 rounded-t-2xl font-bold text-base md:text-lg flex items-center gap-2 transition bg-amber-400 text-slate-900 border-t-2 border-x-2 border-amber-500 shadow-sm">
+          <span>📖</span> Materials
+        </button>
+        <button onclick="switchTab('practice')" id="tab-practice" class="nav-tab px-4 py-2 rounded-t-2xl font-bold text-base md:text-lg flex items-center gap-2 transition bg-slate-100 text-slate-600 hover:bg-slate-200">
+          <span>✏️</span> Practice
+        </button>
+        <button onclick="switchTab('assessment')" id="tab-assessment" class="nav-tab px-4 py-2 rounded-t-2xl font-bold text-base md:text-lg flex items-center gap-2 transition bg-slate-100 text-slate-600 hover:bg-slate-200">
+          <span>🎯</span> Quiz
+        </button>
+        <button onclick="switchTab('minigame')" id="tab-minigame" class="nav-tab px-4 py-2 rounded-t-2xl font-bold text-base md:text-lg flex items-center gap-2 transition bg-slate-100 text-slate-600 hover:bg-slate-200">
+          <span>🎮</span> Mini Game
+        </button>
+        <button onclick="switchTab('reflection')" id="tab-reflection" class="nav-tab px-4 py-2 rounded-t-2xl font-bold text-base md:text-lg flex items-center gap-2 transition bg-slate-100 text-slate-600 hover:bg-slate-200">
+          <span>🌟</span> Reflection
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <!-- MAIN CONTAINER -->
+  <main class="max-w-5xl mx-auto px-4 py-6 flex-grow w-full">
+
+    <!-- ========================================== -->
+    <!-- SECTION 1: MATERIALS (LEARN)               -->
+    <!-- ========================================== -->
+    <section id="sec-materials" class="tab-content block space-y-8">
+      
+      <!-- Intro Banner -->
+      <div class="bg-gradient-to-r from-sky-400 to-indigo-500 text-white rounded-3xl p-6 shadow-lg relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-4">
+        <div class="space-y-2 max-w-lg">
+          <span class="bg-white/20 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider">Lesson Focus</span>
+          <h2 class="text-2xl md:text-3xl font-bold">Let's Learn School Things & 12 Colors!</h2>
+          <p class="text-sky-100 text-sm md:text-base">Tap any card to hear slow & clear EFL pronunciation in English!</p>
+        </div>
+        <div class="flex gap-2 text-5xl">
+          <span class="animate-bounce" style="animation-delay: 0.1s">🎒</span>
+          <span class="animate-bounce" style="animation-delay: 0.3s">🎨</span>
+          <span class="animate-bounce" style="animation-delay: 0.5s">📐</span>
+        </div>
+      </div>
+
+      <!-- Filter Sub-Tabs -->
+      <div class="flex justify-center gap-3 flex-wrap">
+        <button onclick="filterMaterials('all')" id="filter-all" class="mat-filter-btn px-4 py-2 rounded-xl font-bold text-sm bg-indigo-600 text-white shadow">Show All</button>
+        <button onclick="filterMaterials('objects')" id="filter-objects" class="mat-filter-btn px-4 py-2 rounded-xl font-bold text-sm bg-white text-slate-700 hover:bg-slate-100 border border-slate-200 shadow-sm">🎒 School Things Only</button>
+        <button onclick="filterMaterials('colors')" id="filter-colors" class="mat-filter-btn px-4 py-2 rounded-xl font-bold text-sm bg-white text-slate-700 hover:bg-slate-100 border border-slate-200 shadow-sm">🎨 12 Colors Only</button>
+      </div>
+
+      <!-- Materials Container (Split into distinct Sections) -->
+      <div id="materialsContainer" class="space-y-8">
+        <!-- Rendered dynamically by JS into School Things & Colors sections -->
+      </div>
+
+      <!-- Grammar & Expression Box -->
+      <div class="bg-amber-50 border-2 border-amber-200 rounded-3xl p-6 shadow-md">
+        <h3 class="text-xl font-bold text-amber-900 mb-4 flex items-center gap-2">
+          <i class="fas fa-comments text-amber-500"></i> Key Sentence Patterns (Pola Kalimat)
+        </h3>
+        
+        <div class="grid md:grid-cols-2 gap-4">
+          <!-- Pattern 1 -->
+          <div class="bg-white p-4 rounded-2xl border border-amber-200 shadow-sm space-y-2">
+            <div class="text-xs font-bold text-amber-600 uppercase">Pattern 1: Asking about objects</div>
+            <div class="flex items-center justify-between">
+              <span class="font-bold text-lg text-slate-800">"What is this?"</span>
+              <button onclick="speakText('What is this?')" class="w-8 h-8 rounded-full bg-amber-100 hover:bg-amber-200 text-amber-700 flex items-center justify-center">
+                <i class="fas fa-volume-up"></i>
+              </button>
+            </div>
+            <div class="text-sm text-slate-600 border-t pt-2 border-slate-100">
+              <span class="font-semibold text-emerald-600">Answer:</span> "It is a <u>book</u>." / "It is an <u>eraser</u>."
+            </div>
+          </div>
+
+          <!-- Pattern 2 -->
+          <div class="bg-white p-4 rounded-2xl border border-amber-200 shadow-sm space-y-2">
+            <div class="text-xs font-bold text-amber-600 uppercase">Pattern 2: Asking about colors</div>
+            <div class="flex items-center justify-between">
+              <span class="font-bold text-lg text-slate-800">"What color is it?"</span>
+              <button onclick="speakText('What color is it?')" class="w-8 h-8 rounded-full bg-amber-100 hover:bg-amber-200 text-amber-700 flex items-center justify-center">
+                <i class="fas fa-volume-up"></i>
+              </button>
+            </div>
+            <div class="text-sm text-slate-600 border-t pt-2 border-slate-100">
+              <span class="font-semibold text-emerald-600">Answer:</span> "It is <u>blue</u>." or "It is a <u>red pen</u>."
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- SECTION 2: PRACTICE (LATIHAN)              -->
+    <!-- ========================================== -->
+    <section id="sec-practice" class="tab-content hidden space-y-8">
+      <div class="text-center max-w-xl mx-auto space-y-2">
+        <h2 class="text-3xl font-bold text-slate-800">Fun Practice Time! ✏️</h2>
+        <p class="text-slate-600">Choose an activity to practice your vocabulary and sentences.</p>
+      </div>
+
+      <!-- Practice Mode Switcher -->
+      <div class="flex justify-center gap-3">
+        <button onclick="switchPracticeMode('match')" id="prac-btn-match" class="px-5 py-2.5 rounded-2xl font-bold text-sm bg-emerald-500 text-white shadow-md">1. Word & Picture Match</button>
+        <button onclick="switchPracticeMode('builder')" id="prac-btn-builder" class="px-5 py-2.5 rounded-2xl font-bold text-sm bg-white text-slate-700 hover:bg-slate-100 border border-slate-200 shadow-sm">2. Sentence Builder</button>
+      </div>
+
+      <!-- Practice Area 1: Matching Game -->
+      <div id="practice-match" class="bg-white p-6 md:p-8 rounded-3xl shadow-lg border border-slate-100 space-y-6">
+        <div class="flex justify-between items-center border-b pb-4 border-slate-100">
+          <div>
+            <h3 class="text-xl font-bold text-slate-800">Match the Picture to the Name!</h3>
+            <p class="text-sm text-slate-500">Click a picture on the left, then click its English word on the right!</p>
+          </div>
+          <button onclick="resetMatchingGame()" class="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 rounded-xl text-xs font-bold text-slate-700">
+            <i class="fas fa-rotate-right mr-1"></i> Shuffle
+          </button>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4 md:gap-8 max-w-3xl mx-auto">
+          <!-- Left Column: Pictures -->
+          <div id="matchPicturesCol" class="space-y-3">
+            <!-- Dynamic pictures generated by JS -->
+          </div>
+          <!-- Right Column: Words -->
+          <div id="matchWordsCol" class="space-y-3">
+            <!-- Dynamic words generated by JS -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Practice Area 2: Sentence Builder -->
+      <div id="practice-builder" class="hidden bg-white p-6 md:p-8 rounded-3xl shadow-lg border border-slate-100 space-y-6">
+        <div class="text-center space-y-2">
+          <span class="bg-amber-100 text-amber-800 px-3 py-1 rounded-full text-xs font-bold">Question <span id="builderQuestionNum">1</span> of 5</span>
+          <h3 id="builderPrompt" class="text-2xl font-bold text-slate-800">What is this?</h3>
+        </div>
+
+        <!-- Target Image -->
+        <div class="flex justify-center">
+          <div class="w-40 h-40 bg-sky-50 rounded-3xl border-4 border-sky-200 flex flex-col items-center justify-center p-4 shadow-inner">
+            <div id="builderImage" class="text-7xl mb-2 animate-pulse">📘</div>
+            <span id="builderImageLabel" class="text-xs font-bold text-sky-700 bg-sky-100 px-2.5 py-0.5 rounded-full">Blue Book</span>
+          </div>
+        </div>
+
+        <!-- Sentence Dropzone / Construction Line -->
+        <div class="bg-slate-50 p-4 rounded-2xl border-2 border-dashed border-slate-300 min-h-[70px] flex items-center justify-center flex-wrap gap-2 text-lg font-bold text-slate-800" id="sentenceDropzone">
+          <!-- Selected word pills will appear here -->
+        </div>
+
+        <!-- Available Words Pool -->
+        <div class="space-y-2">
+          <p class="text-xs text-center font-bold text-slate-400 uppercase tracking-wider">Tap words to build your answer:</p>
+          <div id="wordBank" class="flex flex-wrap justify-center gap-2">
+            <!-- Word choices generated by JS -->
+          </div>
+        </div>
+
+        <!-- Actions -->
+        <div class="flex justify-center gap-3 pt-4">
+          <button onclick="clearSentenceBuilder()" class="px-5 py-2.5 bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold rounded-xl text-sm">Clear</button>
+          <button onclick="checkSentenceBuilder()" class="px-6 py-2.5 bg-emerald-500 hover:bg-emerald-600 text-white font-bold rounded-xl text-sm shadow-md">Check Answer ✨</button>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ========================================== -->
+    <!-- SECTION 3: ASSESSMENT (QUIZ)              -->
+    <!-- ========================================== -->
+    <section id="sec-assessment" class="tab-content hidden space-y-6">
+      
+      <!-- Quiz Start Screen -->
+      <div id="quizStartScreen" class="bg-white rounded-3xl p-8 shadow-lg text-center space-y-6 max-w-2xl mx-auto border border-slate-100">
+        <div class="w-20 h-20 bg-amber-100 text-amber-500 rounded-full flex items-center justify-center text-4xl mx-auto shadow-inner">
+          🎯
+        </div>
+        <div class="space-y-2">
+          <h2 class="text-3xl font-bold text-slate-800">3rd Grade English Quiz</h2>
+          <p class="text-slate-600">Test your knowledge of school things, colors, and sentences! There are 5 simple questions.</p>
+        </div>
+        <div class="bg-sky-50 p-4 rounded-2xl text-sm text-sky-800 text-left space-y-2 border border-sky-100">
+          <div class="font-bold flex items-center gap-2"><i class="fas fa-info-circle text-sky-500"></i> Rules for Quiz:</div>
+          <ul class="list-disc list-inside space-y-1 text-xs md:text-sm">
+            <li>Read or listen to the question carefully.</li>
+            <li>Tap the best answer out of 4 options.</li>
+            <li>Get stars for correct answers and unlock your final certificate!</li>
+          </ul>
+        </div>
+        <button onclick="startQuiz()" class="w-full sm:w-auto px-8 py-3.5 bg-amber-400 hover:bg-amber-500 text-slate-900 text-lg font-bold rounded-2xl shadow-lg transform active:scale-95 transition">
+          Start Quiz Now! 🚀
+        </button>
+      </div>
+
+      <!-- Active Quiz View -->
+      <div id="quizActiveScreen" class="hidden bg-white rounded-3xl p-6 md:p-8 shadow-lg border border-slate-100 space-y-6 max-w-2xl mx-auto">
+        <!-- Quiz Header -->
+        <div class="flex items-center justify-between border-b pb-4 border-slate-100">
+          <span class="text-sm font-bold text-indigo-600 bg-indigo-50 px-3 py-1 rounded-full">Question <span id="quizCurrentNum">1</span> of 5</span>
+          <div class="w-1/3 bg-slate-100 h-3 rounded-full overflow-hidden">
+            <div id="quizProgressBar" class="bg-indigo-500 h-full transition-all duration-300" style="width: 20%"></div>
+          </div>
+        </div>
+
+        <!-- Question Text & Audio -->
+        <div class="space-y-4">
+          <div class="flex items-center justify-between gap-2">
+            <h3 id="quizQuestionText" class="text-xl md:text-2xl font-bold text-slate-800">What is this?</h3>
+            <button onclick="speakCurrentQuizQuestion()" class="p-2.5 bg-indigo-100 hover:bg-indigo-200 text-indigo-700 rounded-xl shrink-0">
+              <i class="fas fa-volume-up text-lg"></i>
+            </button>
+          </div>
+
+          <!-- Question Media Visual (Emoji or Image) -->
+          <div id="quizMediaBox" class="w-full h-44 bg-slate-50 rounded-2xl flex items-center justify-center border border-slate-200 text-7xl shadow-inner">
+            ✏️
+          </div>
+        </div>
+
+        <!-- Answers Grid -->
+        <div id="quizOptionsGrid" class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <!-- Generated by JS -->
+        </div>
+
+        <!-- Feedback & Next Button -->
+        <div id="quizFeedbackBox" class="hidden p-4 rounded-2xl text-center font-bold flex justify-between items-center">
+          <span id="quizFeedbackText">Great job!</span>
+          <button id="quizNextBtn" onclick="nextQuizQuestion()" class="px-5 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-sm font-bold shadow">Next Question <i class="fas fa-arrow-right ml-1"></i></button>
+        </div>
+      </div>
+
+      <!-- Quiz Results Screen -->
+      <div id="quizResultScreen" class="hidden bg-white rounded-3xl p-8 shadow-lg text-center space-y-6 max-w-2xl mx-auto border border-slate-100">
+        <div class="text-6xl animate-bounce">🏆</div>
+        <div class="space-y-2">
+          <h2 class="text-3xl font-bold text-slate-800">Quiz Completed!</h2>
+          <p class="text-slate-600">Here is how you did:</p>
+        </div>
+
+        <div class="bg-amber-50 p-6 rounded-3xl border border-amber-200 space-y-3">
+          <div class="text-4xl font-bold text-amber-600" id="quizFinalScore">5 / 5</div>
+          <div id="quizStarsDisplay" class="text-3xl text-amber-400 space-x-1">
+            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+          </div>
+          <p id="quizMotivationalMsg" class="font-bold text-slate-700">Awesome! You know all your school things & colors!</p>
+        </div>
+
+        <div class="flex flex-wrap justify-center gap-3">
+          <button onclick="startQuiz()" class="px-6 py-3 bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold rounded-xl">Try Again</button>
+          <button onclick="switchTab('reflection')" class="px-6 py-3 bg-emerald-500 hover:bg-emerald-600 text-white font-bold rounded-xl shadow-md">Go to Reflection 🌟</button>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ========================================== -->
+    <!-- SECTION 4: MINI GAME (PERMAINAN)           -->
+    <!-- ========================================== -->
+    <section id="sec-minigame" class="tab-content hidden space-y-6">
+      <div class="bg-white rounded-3xl p-6 md:p-8 shadow-lg border border-slate-100 space-y-4">
+        
+        <!-- Game Banner -->
+        <div class="flex flex-wrap items-center justify-between gap-4 border-b pb-4 border-slate-100">
+          <div>
+            <h2 class="text-2xl md:text-3xl font-bold text-slate-800">🎮 Mini Game: Color Bag Catcher</h2>
+            <p class="text-slate-600 text-sm">Move the school bag left & right to catch items that match the bag's color!</p>
+          </div>
+          <div class="flex items-center gap-4 bg-slate-100 px-4 py-2 rounded-2xl">
+            <div class="text-center">
+              <span class="block text-xs font-bold text-slate-400">SCORE</span>
+              <span id="gameScoreText" class="text-xl font-bold text-indigo-600">0</span>
+            </div>
+            <div class="text-center border-l pl-4 border-slate-300">
+              <span class="block text-xs font-bold text-slate-400">TIME</span>
+              <span id="gameTimeText" class="text-xl font-bold text-amber-600">30s</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Canvas Container -->
+        <div class="relative w-full overflow-hidden rounded-2xl bg-gradient-to-b from-sky-100 to-indigo-100 border-4 border-indigo-200 h-96 flex flex-col items-center justify-center">
+          
+          <!-- Game Canvas -->
+          <canvas id="gameCanvas" class="w-full h-full block"></canvas>
+
+          <!-- Start Overlay -->
+          <div id="gameStartOverlay" class="absolute inset-0 bg-slate-900/60 backdrop-blur-sm flex flex-col items-center justify-center text-white p-6 text-center space-y-4">
+            <div class="text-5xl mb-2">🎒🎨</div>
+            <h3 class="text-2xl font-bold">Ready to Play?</h3>
+            <p class="text-sm text-slate-200 max-w-md">Items are falling! Move your bag using <b>Left/Right Arrow Keys</b> or by <b>Dragging / Tapping</b> on the screen to catch the matching color item!</p>
+            <button onclick="startGame()" class="px-8 py-3 bg-amber-400 hover:bg-amber-500 text-slate-900 font-bold text-lg rounded-2xl shadow-lg transform active:scale-95 transition">
+              Play Game! 🚀
+            </button>
+          </div>
+
+          <!-- Game Over Overlay -->
+          <div id="gameOverOverlay" class="hidden absolute inset-0 bg-slate-900/80 backdrop-blur-sm flex flex-col items-center justify-center text-white p-6 text-center space-y-4">
+            <div class="text-6xl mb-2">🎉</div>
+            <h3 class="text-3xl font-bold">Time's Up!</h3>
+            <p class="text-lg">You scored <span id="finalGameScore" class="font-bold text-amber-400">0</span> points!</p>
+            <button onclick="startGame()" class="px-8 py-3 bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-lg rounded-2xl shadow-lg transform active:scale-95 transition">
+              Play Again 🔄
+            </button>
+          </div>
+        </div>
+
+        <!-- Touch / On-screen controls for mobile -->
+        <div class="flex justify-center gap-4 pt-2 md:hidden">
+          <button id="btnLeft" class="w-20 h-14 bg-indigo-500 text-white text-2xl font-bold rounded-2xl active:bg-indigo-700 shadow-md flex items-center justify-center">
+            ◀
+          </button>
+          <button id="btnRight" class="w-20 h-14 bg-indigo-500 text-white text-2xl font-bold rounded-2xl active:bg-indigo-700 shadow-md flex items-center justify-center">
+            ▶
+          </button>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- SECTION 5: REFLECTION (REFLEKSI)           -->
+    <!-- ========================================== -->
+    <section id="sec-reflection" class="tab-content hidden space-y-6">
+      <div class="bg-white rounded-3xl p-6 md:p-8 shadow-lg border border-slate-100 space-y-6 max-w-3xl mx-auto">
+        <div class="text-center space-y-2">
+          <span class="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-xs font-bold uppercase">Self Assessment</span>
+          <h2 class="text-3xl font-bold text-slate-800">My Learning Reflection 🌟</h2>
+          <p class="text-slate-600">Think about what you learned today and check your achievements!</p>
+        </div>
+
+        <!-- 1. Mood Picker -->
+        <div class="space-y-3 bg-slate-50 p-5 rounded-2xl border border-slate-200">
+          <h3 class="font-bold text-slate-800 text-lg">1. How do you feel about today's lesson?</h3>
+          <div class="flex justify-around gap-2">
+            <button onclick="selectMood('happy')" id="mood-happy" class="mood-btn p-4 rounded-2xl border-2 border-slate-200 bg-white hover:border-amber-400 text-center transition flex-1">
+              <div class="text-4xl mb-1">😄</div>
+              <span class="font-bold text-xs text-slate-700">Super Happy!</span>
+            </button>
+            <button onclick="selectMood('ok')" id="mood-ok" class="mood-btn p-4 rounded-2xl border-2 border-slate-200 bg-white hover:border-amber-400 text-center transition flex-1">
+              <div class="text-4xl mb-1">🙂</div>
+              <span class="font-bold text-xs text-slate-700">Good Job</span>
+            </button>
+            <button onclick="selectMood('need-practice')" id="mood-need-practice" class="mood-btn p-4 rounded-2xl border-2 border-slate-200 bg-white hover:border-amber-400 text-center transition flex-1">
+              <div class="text-4xl mb-1">😐</div>
+              <span class="font-bold text-xs text-slate-700">Need Practice</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- 2. Checklist -->
+        <div class="space-y-3 bg-slate-50 p-5 rounded-2xl border border-slate-200">
+          <h3 class="font-bold text-slate-800 text-lg">2. What can you do now? (Check all that apply)</h3>
+          <div class="space-y-2">
+            <label class="flex items-center gap-3 p-3 bg-white rounded-xl border border-slate-200 cursor-pointer hover:bg-amber-50">
+              <input type="checkbox" onchange="updateReflectionProgress()" class="w-5 h-5 rounded text-amber-500 focus:ring-amber-400 refl-check">
+              <span class="font-bold text-slate-700 text-sm">🎒 I can name 8 school objects in English (book, pencil, pen, etc.)</span>
+            </label>
+            <label class="flex items-center gap-3 p-3 bg-white rounded-xl border border-slate-200 cursor-pointer hover:bg-amber-50">
+              <input type="checkbox" onchange="updateReflectionProgress()" class="w-5 h-5 rounded text-amber-500 focus:ring-amber-400 refl-check">
+              <span class="font-bold text-slate-700 text-sm">🎨 I can identify colors (red, blue, yellow, green)</span>
+            </label>
+            <label class="flex items-center gap-3 p-3 bg-white rounded-xl border border-slate-200 cursor-pointer hover:bg-amber-50">
+              <input type="checkbox" onchange="updateReflectionProgress()" class="w-5 h-5 rounded text-amber-500 focus:ring-amber-400 refl-check">
+              <span class="font-bold text-slate-700 text-sm">💬 I can ask and answer: "What is this? It is a..."</span>
+            </label>
+            <label class="flex items-center gap-3 p-3 bg-white rounded-xl border border-slate-200 cursor-pointer hover:bg-amber-50">
+              <input type="checkbox" onchange="updateReflectionProgress()" class="w-5 h-5 rounded text-amber-500 focus:ring-amber-400 refl-check">
+              <span class="font-bold text-slate-700 text-sm">🌈 I can ask and answer: "What color is it? It is..."</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- 3. Student Name Input & Certificate Preview -->
+        <div class="space-y-4">
+          <div class="flex flex-col sm:flex-row gap-3">
+            <input type="text" id="studentNameInput" placeholder="Enter your name here..." class="flex-grow px-4 py-3 border-2 border-slate-300 rounded-xl focus:outline-none focus:border-amber-400 font-bold text-slate-800">
+            <button onclick="generateCertificate()" class="px-6 py-3 bg-amber-400 hover:bg-amber-500 text-slate-900 font-bold rounded-xl shadow-md shrink-0">
+              Generate Badge / Certificate 📜
+            </button>
+          </div>
+
+          <!-- Digital Badge Container -->
+          <div id="certificateBox" class="hidden bg-gradient-to-br from-amber-100 via-orange-50 to-amber-200 border-4 border-amber-400 rounded-3xl p-6 text-center space-y-3 relative overflow-hidden shadow-xl">
+            <div class="text-xs font-bold text-amber-700 tracking-widest uppercase">Certificate of Achievement</div>
+            <h4 class="text-2xl font-bold text-slate-800">Great Job, <span id="certName" class="text-amber-600 underline">Student</span>! 🎉</h4>
+            <p class="text-xs text-slate-600 max-w-md mx-auto">You have successfully explored <b>My School Things & Colors</b> for 3rd Grade English!</p>
+            
+            <div class="flex justify-center items-center gap-4 py-2">
+              <div class="w-16 h-16 bg-amber-400 rounded-full flex items-center justify-center text-3xl shadow-md border-2 border-white">
+                🌟
+              </div>
+              <div class="text-left">
+                <div class="text-xs font-bold text-amber-800">Grade 3 Star Learner</div>
+                <div class="text-lg font-bold text-slate-800" id="certStarsCount">Stars Earned: 5 ⭐</div>
+              </div>
+            </div>
+
+            <p class="text-xs text-amber-700 italic font-semibold">"Keep up the great work learning English everyday!"</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="bg-white border-t border-slate-200 py-4 mt-8">
+    <div class="max-w-6xl mx-auto px-4 text-center text-xs text-slate-500 font-semibold space-y-1">
+      <p>Interactive Learning Media — My School Things & Colors (3rd Grade English)</p>
+      <p>Designed for fun classroom & independent practice 🎒✏️🎨</p>
+    </div>
+  </footer>
+
+  <!-- CUSTOM ALERT/NOTIFICATION TOAST CONTAINER -->
+  <div id="toast" class="fixed bottom-6 right-6 z-50 bg-slate-900 text-white px-5 py-3 rounded-2xl shadow-xl flex items-center gap-3 transition-all duration-300 transform translate-y-20 opacity-0">
+    <span id="toastIcon" class="text-xl">✨</span>
+    <span id="toastMessage" class="text-sm font-bold">Notification message</span>
+  </div>
+
+  <!-- JAVASCRIPT LOGIC -->
+  <script>
+    /* ============================================================
+       DATA MODELS
+       ============================================================ */
+    const SCHOOL_DATA = [
+      // 8 School Objects
+      { id: 'book', name: 'Book', category: 'objects', color: 'Blue', colorHex: '#118AB2', emoji: '📘', sampleSentence: 'It is a book.' },
+      { id: 'pencil', name: 'Pencil', category: 'objects', color: 'Yellow', colorHex: '#FFD166', emoji: '✏️', sampleSentence: 'It is a pencil.' },
+      { id: 'pen', name: 'Pen', category: 'objects', color: 'Red', colorHex: '#EF476F', emoji: '🖊️', sampleSentence: 'It is a pen.' },
+      { id: 'ruler', name: 'Ruler', category: 'objects', color: 'Green', colorHex: '#06D6A0', emoji: '📐', sampleSentence: 'It is a ruler.' },
+      { id: 'eraser', name: 'Eraser', category: 'objects', color: 'Pink', colorHex: '#FFB703', emoji: '🧹', sampleSentence: 'It is an eraser.' },
+      { id: 'bag', name: 'Bag', category: 'objects', color: 'Purple', colorHex: '#8338EC', emoji: '🎒', sampleSentence: 'It is a bag.' },
+      { id: 'chair', name: 'Chair', category: 'objects', color: 'Brown', colorHex: '#FB5607', emoji: '🪑', sampleSentence: 'It is a chair.' },
+      { id: 'table', name: 'Table', category: 'objects', color: 'Orange', colorHex: '#F77F00', emoji: '🛋️', sampleSentence: 'It is a table.' },
+      
+      // 12 Complete Colors
+      { id: 'c-red', name: 'Red', category: 'colors', colorHex: '#EF476F', emoji: '🔴', sampleSentence: 'It is red.' },
+      { id: 'c-blue', name: 'Blue', category: 'colors', colorHex: '#118AB2', emoji: '🔵', sampleSentence: 'It is blue.' },
+      { id: 'c-yellow', name: 'Yellow', category: 'colors', colorHex: '#FFD166', emoji: '🟡', sampleSentence: 'It is yellow.' },
+      { id: 'c-green', name: 'Green', category: 'colors', colorHex: '#06D6A0', emoji: '🟢', sampleSentence: 'It is green.' },
+      { id: 'c-pink', name: 'Pink', category: 'colors', colorHex: '#FF69B4', emoji: '🩷', sampleSentence: 'It is pink.' },
+      { id: 'c-purple', name: 'Purple', category: 'colors', colorHex: '#8338EC', emoji: '🟣', sampleSentence: 'It is purple.' },
+      { id: 'c-orange', name: 'Orange', category: 'colors', colorHex: '#FB5607', emoji: '🟠', sampleSentence: 'It is orange.' },
+      { id: 'c-brown', name: 'Brown', category: 'colors', colorHex: '#795548', emoji: '🟤', sampleSentence: 'It is brown.' },
+      { id: 'c-black', name: 'Black', category: 'colors', colorHex: '#212121', emoji: '⚫', sampleSentence: 'It is black.' },
+      { id: 'c-white', name: 'White', category: 'colors', colorHex: '#E0E0E0', emoji: '⚪', sampleSentence: 'It is white.' },
+      { id: 'c-gray', name: 'Gray', category: 'colors', colorHex: '#9E9E9E', emoji: '🩶', sampleSentence: 'It is gray.' },
+      { id: 'c-lightblue', name: 'Light Blue', category: 'colors', colorHex: '#00BCD4', emoji: '🩵', sampleSentence: 'It is light blue.' }
+    ];
+
+    const QUIZ_QUESTIONS = [
+      {
+        question: "What is this?",
+        media: "📘",
+        options: ["It is a book.", "It is a pencil.", "It is a chair.", "It is an eraser."],
+        correct: 0
+      },
+      {
+        question: "What color is this pencil?",
+        media: "✏️",
+        options: ["It is blue.", "It is yellow.", "It is red.", "It is green."],
+        correct: 1
+      },
+      {
+        question: "What color is this heart 🩷?",
+        media: "🩷",
+        options: ["It is green.", "It is pink.", "It is brown.", "It is black."],
+        correct: 1
+      },
+      {
+        question: "What is this?",
+        media: "📐",
+        options: ["It is a table.", "It is a pen.", "It is a ruler.", "It is a book."],
+        correct: 2
+      },
+      {
+        question: "Choose the correct color for 🩵:",
+        media: "🩵",
+        options: ["It is light blue.", "It is red.", "It is yellow.", "It is purple."],
+        correct: 0
+      }
+    ];
+
+    /* ============================================================
+       STATE MANAGEMENT
+       ============================================================ */
+    let audioEnabled = true;
+    let globalStars = 0;
+    let currentTab = 'materials';
+    
+    // Practice Matching State
+    let selectedMatchPic = null;
+    let selectedMatchWord = null;
+    let matchPairsLeft = 4;
+    
+    // Sentence Builder State
+    let currentBuilderIdx = 0;
+    const builderData = [
+      { question: "What is this?", emoji: "📘", label: "Blue Book", targetSentence: ["It", "is", "a", "blue", "book."], choices: ["It", "is", "a", "blue", "book.", "red", "pencil", "table"] },
+      { question: "What color is it?", emoji: "✏️", label: "Yellow Pencil", targetSentence: ["It", "is", "yellow."], choices: ["It", "is", "yellow.", "blue", "chair", "bag"] },
+      { question: "What is this?", emoji: "📐", label: "Green Ruler", targetSentence: ["It", "is", "a", "green", "ruler."], choices: ["It", "is", "a", "green", "ruler.", "eraser", "pen"] },
+      { question: "What is this?", emoji: "🎒", label: "Purple Bag", targetSentence: ["It", "is", "a", "purple", "bag."], choices: ["It", "is", "a", "purple", "bag.", "yellow", "chair"] },
+      { question: "What color is it?", emoji: "🔴", label: "Red Color", targetSentence: ["It", "is", "red."], choices: ["It", "is", "red.", "green", "blue", "yellow"] }
+    ];
+    let userBuiltSentence = [];
+
+    // Quiz State
+    let quizIdx = 0;
+    let quizScore = 0;
+    let quizSelectedOpt = null;
+
+    // Reflection State
+    let selectedMood = '';
+
+    /* ============================================================
+       AUDIO / TTS & SOUND FX (Web Audio API)
+       ============================================================ */
+    const AudioCtx = window.AudioContext || window.webkitAudioContext;
+    let audioCtx = null;
+
+    function initAudioContext() {
+      if (!audioCtx) {
+        audioCtx = new AudioCtx();
+      }
+    }
+
+    function playSound(type) {
+      if (!audioEnabled) return;
+      try {
+        initAudioContext();
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+
+        const now = audioCtx.currentTime;
+
+        if (type === 'correct') {
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(523.25, now); // C5
+          osc.frequency.setValueAtTime(659.25, now + 0.1); // E5
+          osc.frequency.setValueAtTime(783.99, now + 0.2); // G5
+          gain.gain.setValueAtTime(0.3, now);
+          gain.gain.exponentialRampToValueAtTime(0.01, now + 0.4);
+          osc.start(now);
+          osc.stop(now + 0.4);
+        } else if (type === 'wrong') {
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(300, now);
+          osc.frequency.setValueAtTime(220, now + 0.15);
+          gain.gain.setValueAtTime(0.3, now);
+          gain.gain.exponentialRampToValueAtTime(0.01, now + 0.3);
+          osc.start(now);
+          osc.stop(now + 0.3);
+        } else if (type === 'pop') {
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(400, now);
+          osc.frequency.exponentialRampToValueAtTime(800, now + 0.08);
+          gain.gain.setValueAtTime(0.2, now);
+          gain.gain.exponentialRampToValueAtTime(0.01, now + 0.08);
+          osc.start(now);
+          osc.stop(now + 0.08);
+        }
+      } catch (e) {
+        // Fallback gracefully
+      }
+    }
+
+    function toggleAudio() {
+      audioEnabled = !audioEnabled;
+      const btn = document.getElementById('ttsToggleBtn');
+      const icon = document.getElementById('ttsIcon');
+      if (audioEnabled) {
+        btn.classList.replace('bg-slate-200', 'bg-sky-100');
+        btn.classList.replace('text-slate-700', 'bg-sky-100');
+        icon.className = 'fas fa-volume-up text-base';
+        showToast('🔊 Audio Pronunciation ON');
+      } else {
+        btn.classList.replace('bg-sky-100', 'bg-slate-200');
+        icon.className = 'fas fa-volume-mute text-base';
+        showToast('🔇 Audio Pronunciation OFF');
+      }
+    }
+
+    function speakText(text) {
+      if (!audioEnabled) return;
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel(); // Stop active speech
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = 'en-US';
+        utterance.rate = 0.65; // Slower rate tailored for EFL primary learners
+        utterance.pitch = 1.0;
+        window.speechSynthesis.speak(utterance);
+      }
+    }
+
+    /* ============================================================
+       NAVIGATION & UI HELPERS
+       ============================================================ */
+    function switchTab(tabName) {
+      playSound('pop');
+      currentTab = tabName;
+      
+      // Update Tab Styles
+      document.querySelectorAll('.nav-tab').forEach(btn => {
+        btn.className = 'nav-tab px-4 py-2 rounded-t-2xl font-bold text-base md:text-lg flex items-center gap-2 transition bg-slate-100 text-slate-600 hover:bg-slate-200';
+      });
+      const activeBtn = document.getElementById(`tab-${tabName}`);
+      if (activeBtn) {
+        activeBtn.className = 'nav-tab px-4 py-2 rounded-t-2xl font-bold text-base md:text-lg flex items-center gap-2 transition bg-amber-400 text-slate-900 border-t-2 border-x-2 border-amber-500 shadow-sm';
+      }
+
+      // Hide all contents
+      document.querySelectorAll('.tab-content').forEach(sec => sec.classList.add('hidden'));
+      
+      // Show target content
+      const targetSec = document.getElementById(`sec-${tabName}`);
+      if (targetSec) targetSec.classList.remove('hidden');
+
+      // Specific initializations
+      if (tabName === 'practice') {
+        initMatchingGame();
+        initSentenceBuilder();
+      } else if (tabName === 'minigame') {
+        initGameCanvas();
+      }
+    }
+
+    function addStars(num) {
+      globalStars += num;
+      document.getElementById('globalStars').innerText = globalStars;
+    }
+
+    function showToast(msg, icon = '✨') {
+      const toast = document.getElementById('toast');
+      document.getElementById('toastIcon').innerText = icon;
+      document.getElementById('toastMessage').innerText = msg;
+      toast.classList.remove('translate-y-20', 'opacity-0');
+      setTimeout(() => {
+        toast.classList.add('translate-y-20', 'opacity-0');
+      }, 2500);
+    }
+
+    /* ============================================================
+       MODULE 1: MATERIALS (LEARN) - SPLIT VIEW
+       ============================================================ */
+    function renderMaterials(filter = 'all') {
+      const container = document.getElementById('materialsContainer');
+      container.innerHTML = '';
+
+      const objectsList = SCHOOL_DATA.filter(i => i.category === 'objects');
+      const colorsList = SCHOOL_DATA.filter(i => i.category === 'colors');
+
+      // Section 1: School Objects
+      if (filter === 'all' || filter === 'objects') {
+        const objSec = document.createElement('div');
+        objSec.className = 'space-y-3';
+        objSec.innerHTML = `
+          <div class="flex items-center gap-2 border-b-2 border-sky-200 pb-2">
+            <span class="text-2xl">🎒</span>
+            <h3 class="text-xl font-bold text-slate-800">School Things (${objectsList.length} Items)</h3>
+          </div>
+          <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4" id="gridObjects"></div>
+        `;
+        container.appendChild(objSec);
+
+        const gridObj = objSec.querySelector('#gridObjects');
+        objectsList.forEach(item => gridObj.appendChild(createMaterialCard(item)));
+      }
+
+      // Section 2: Colors (12 colors)
+      if (filter === 'all' || filter === 'colors') {
+        const colSec = document.createElement('div');
+        colSec.className = 'space-y-3';
+        colSec.innerHTML = `
+          <div class="flex items-center gap-2 border-b-2 border-amber-200 pb-2">
+            <span class="text-2xl">🎨</span>
+            <h3 class="text-xl font-bold text-slate-800">12 Colors Palette</h3>
+          </div>
+          <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4" id="gridColors"></div>
+        `;
+        container.appendChild(colSec);
+
+        const gridCol = colSec.querySelector('#gridColors');
+        colorsList.forEach(item => gridCol.appendChild(createMaterialCard(item)));
+      }
+    }
+
+    function createMaterialCard(item) {
+      const card = document.createElement('div');
+      card.className = 'bg-white border-2 border-slate-100 rounded-2xl p-4 shadow-sm hover:shadow-md transition cursor-pointer flex flex-col items-center text-center space-y-2 group transform hover:-translate-y-1';
+      card.onclick = () => {
+        playSound('pop');
+        speakText(item.name + ". " + item.sampleSentence);
+      };
+
+      card.innerHTML = `
+        <div class="text-5xl group-hover:scale-110 transition duration-200 mb-1">${item.emoji}</div>
+        <div class="font-bold text-lg text-slate-800">${item.name}</div>
+        <span class="text-xs px-2.5 py-0.5 rounded-full font-bold" style="background-color: ${item.colorHex}20; color: ${item.colorHex}">
+          ${item.category === 'objects' ? 'School Object' : 'Color'}
+        </span>
+        <p class="text-xs text-slate-500 italic mt-1">"${item.sampleSentence}"</p>
+        <div class="w-7 h-7 rounded-full bg-slate-100 text-slate-500 group-hover:bg-amber-400 group-hover:text-slate-900 flex items-center justify-center text-xs mt-2 transition">
+          <i class="fas fa-volume-up"></i>
+        </div>
+      `;
+      return card;
+    }
+
+    function filterMaterials(cat) {
+      playSound('pop');
+      document.querySelectorAll('.mat-filter-btn').forEach(b => {
+        b.className = 'mat-filter-btn px-4 py-2 rounded-xl font-bold text-sm bg-white text-slate-700 hover:bg-slate-100 border border-slate-200 shadow-sm';
+      });
+      const activeBtn = document.getElementById(`filter-${cat}`);
+      if (activeBtn) {
+        activeBtn.className = 'mat-filter-btn px-4 py-2 rounded-xl font-bold text-sm bg-indigo-600 text-white shadow';
+      }
+      renderMaterials(cat);
+    }
+
+    /* ============================================================
+       MODULE 2: PRACTICE ACTIVITIES
+       ============================================================ */
+    function switchPracticeMode(mode) {
+      playSound('pop');
+      document.getElementById('prac-btn-match').className = 'px-5 py-2.5 rounded-2xl font-bold text-sm bg-white text-slate-700 hover:bg-slate-100 border border-slate-200 shadow-sm';
+      document.getElementById('prac-btn-builder').className = 'px-5 py-2.5 rounded-2xl font-bold text-sm bg-white text-slate-700 hover:bg-slate-100 border border-slate-200 shadow-sm';
+
+      if (mode === 'match') {
+        document.getElementById('prac-btn-match').className = 'px-5 py-2.5 rounded-2xl font-bold text-sm bg-emerald-500 text-white shadow-md';
+        document.getElementById('practice-match').classList.remove('hidden');
+        document.getElementById('practice-builder').classList.add('hidden');
+      } else {
+        document.getElementById('prac-btn-builder').className = 'px-5 py-2.5 rounded-2xl font-bold text-sm bg-emerald-500 text-white shadow-md';
+        document.getElementById('practice-match').classList.add('hidden');
+        document.getElementById('practice-builder').classList.remove('hidden');
+      }
+    }
+
+    // Matching Activity Logic
+    function initMatchingGame() {
+      const picsCol = document.getElementById('matchPicturesCol');
+      const wordsCol = document.getElementById('matchWordsCol');
+      picsCol.innerHTML = '';
+      wordsCol.innerHTML = '';
+      selectedMatchPic = null;
+      selectedMatchWord = null;
+
+      // Pick 4 items randomly
+      const shuffled = [...SCHOOL_DATA.filter(i => i.category === 'objects')].sort(() => 0.5 - Math.random()).slice(0, 4);
+      matchPairsLeft = shuffled.length;
+
+      const wordsList = [...shuffled].sort(() => 0.5 - Math.random());
+
+      shuffled.forEach(item => {
+        const btn = document.createElement('button');
+        btn.dataset.id = item.id;
+        btn.className = 'match-pic-btn w-full p-4 bg-slate-50 border-2 border-slate-200 hover:border-emerald-400 rounded-2xl text-4xl flex items-center justify-center gap-3 transition shadow-sm';
+        btn.innerHTML = `<span>${item.emoji}</span>`;
+        btn.onclick = () => selectMatchItem('pic', btn, item.id);
+        picsCol.appendChild(btn);
+      });
+
+      wordsList.forEach(item => {
+        const btn = document.createElement('button');
+        btn.dataset.id = item.id;
+        btn.className = 'match-word-btn w-full p-4 bg-slate-50 border-2 border-slate-200 hover:border-emerald-400 rounded-2xl font-bold text-lg text-slate-800 transition shadow-sm';
+        btn.innerText = item.name;
+        btn.onclick = () => selectMatchItem('word', btn, item.id);
+        wordsCol.appendChild(btn);
+      });
+    }
+
+    function selectMatchItem(type, el, id) {
+      playSound('pop');
+      if (type === 'pic') {
+        document.querySelectorAll('.match-pic-btn').forEach(b => b.classList.remove('border-emerald-500', 'bg-emerald-50'));
+        el.classList.add('border-emerald-500', 'bg-emerald-50');
+        selectedMatchPic = { el, id };
+      } else {
+        document.querySelectorAll('.match-word-btn').forEach(b => b.classList.remove('border-emerald-500', 'bg-emerald-50'));
+        el.classList.add('border-emerald-500', 'bg-emerald-50');
+        selectedMatchWord = { el, id };
+      }
+
+      if (selectedMatchPic && selectedMatchWord) {
+        if (selectedMatchPic.id === selectedMatchWord.id) {
+          // Correct Match!
+          playSound('correct');
+          selectedMatchPic.el.classList.add('opacity-40', 'pointer-events-none', 'bg-emerald-100');
+          selectedMatchWord.el.classList.add('opacity-40', 'pointer-events-none', 'bg-emerald-100');
+          selectedMatchPic.el.innerHTML += `<i class="fas fa-check-circle text-emerald-500 text-xl ml-auto"></i>`;
+          
+          addStars(1);
+          showToast('Correct Match! +1 Star ⭐', '🎉');
+          matchPairsLeft--;
+
+          if (matchPairsLeft === 0) {
+            setTimeout(() => {
+              showToast('Awesome! All matches completed!', '🏆');
+            }, 500);
+          }
+        } else {
+          // Wrong Match
+          playSound('wrong');
+          showToast('Try again!', '❌');
+        }
+        selectedMatchPic = null;
+        selectedMatchWord = null;
+      }
+    }
+
+    function resetMatchingGame() {
+      initMatchingGame();
+    }
+
+    // Sentence Builder Activity Logic
+    function initSentenceBuilder() {
+      const data = builderData[currentBuilderIdx];
+      document.getElementById('builderQuestionNum').innerText = currentBuilderIdx + 1;
+      document.getElementById('builderPrompt').innerText = data.question;
+      document.getElementById('builderImage').innerText = data.emoji;
+      document.getElementById('builderImageLabel').innerText = data.label;
+      
+      userBuiltSentence = [];
+      renderSentenceDropzone();
+
+      const wordBank = document.getElementById('wordBank');
+      wordBank.innerHTML = '';
+      
+      // Shuffle choices
+      const shuffledChoices = [...data.choices].sort(() => 0.5 - Math.random());
+      shuffledChoices.forEach((word, idx) => {
+        const btn = document.createElement('button');
+        btn.className = 'px-4 py-2 bg-white border-2 border-indigo-200 hover:border-indigo-400 text-indigo-900 font-bold rounded-xl text-base shadow-sm active:scale-95 transition';
+        btn.innerText = word;
+        btn.onclick = () => {
+          playSound('pop');
+          userBuiltSentence.push(word);
+          btn.disabled = true;
+          btn.classList.add('opacity-40');
+          renderSentenceDropzone();
+        };
+        wordBank.appendChild(btn);
+      });
+    }
+
+    function renderSentenceDropzone() {
+      const dz = document.getElementById('sentenceDropzone');
+      dz.innerHTML = '';
+      if (userBuiltSentence.length === 0) {
+        dz.innerHTML = `<span class="text-slate-400 font-normal italic text-sm">Tap words below to form a sentence...</span>`;
+        return;
+      }
+
+      userBuiltSentence.forEach((word, idx) => {
+        const span = document.createElement('span');
+        span.className = 'px-3 py-1.5 bg-amber-200 text-amber-900 rounded-lg shadow-sm flex items-center gap-1 border border-amber-300 cursor-pointer';
+        span.innerHTML = `${word} <i class="fas fa-times text-xs text-amber-600"></i>`;
+        span.onclick = () => {
+          playSound('pop');
+          userBuiltSentence.splice(idx, 1);
+          renderSentenceDropzone();
+          // re-enable in wordbank
+          initSentenceBuilder(); // Simple reset bank view for clarity
+        };
+        dz.appendChild(span);
+      });
+    }
+
+    function clearSentenceBuilder() {
+      initSentenceBuilder();
+    }
+
+    function checkSentenceBuilder() {
+      const data = builderData[currentBuilderIdx];
+      const built = userBuiltSentence.join(' ');
+      const target = data.targetSentence.join(' ');
+
+      if (built === target) {
+        playSound('correct');
+        speakText(built);
+        addStars(2);
+        showToast('Great sentence! +2 Stars ⭐⭐', '🎉');
+
+        currentBuilderIdx = (currentBuilderIdx + 1) % builderData.length;
+        setTimeout(() => {
+          initSentenceBuilder();
+        }, 1200);
+      } else {
+        playSound('wrong');
+        showToast('Not quite right! Try putting words in order.', '💡');
+      }
+    }
+
+    /* ============================================================
+       MODULE 3: ASSESSMENT (QUIZ)
+       ============================================================ */
+    function startQuiz() {
+      quizIdx = 0;
+      quizScore = 0;
+      document.getElementById('quizStartScreen').classList.add('hidden');
+      document.getElementById('quizResultScreen').classList.add('hidden');
+      document.getElementById('quizActiveScreen').classList.remove('hidden');
+      renderQuizQuestion();
+    }
+
+    function renderQuizQuestion() {
+      const q = QUIZ_QUESTIONS[quizIdx];
+      quizSelectedOpt = null;
+
+      document.getElementById('quizCurrentNum').innerText = quizIdx + 1;
+      document.getElementById('quizProgressBar').style.width = `${((quizIdx + 1) / QUIZ_QUESTIONS.length) * 100}%`;
+      document.getElementById('quizQuestionText').innerText = q.question;
+      document.getElementById('quizMediaBox').innerText = q.media;
+
+      const grid = document.getElementById('quizOptionsGrid');
+      grid.innerHTML = '';
+      document.getElementById('quizFeedbackBox').classList.add('hidden');
+
+      q.options.forEach((optText, optIdx) => {
+        const btn = document.createElement('button');
+        btn.className = 'quiz-opt-btn w-full p-4 bg-slate-50 border-2 border-slate-200 hover:border-indigo-400 rounded-2xl font-bold text-left text-slate-800 transition shadow-sm flex items-center gap-3';
+        btn.innerHTML = `<span class="w-8 h-8 rounded-full bg-slate-200 flex items-center justify-center text-slate-600 font-bold text-sm shrink-0">${String.fromCharCode(65 + optIdx)}</span> ${optText}`;
+        btn.onclick = () => selectQuizOption(optIdx, btn);
+        grid.appendChild(btn);
+      });
+    }
+
+    function selectQuizOption(optIdx, btnEl) {
+      if (quizSelectedOpt !== null) return; // Prevent double click
+      quizSelectedOpt = optIdx;
+
+      const q = QUIZ_QUESTIONS[quizIdx];
+      const feedbackBox = document.getElementById('quizFeedbackBox');
+      const feedbackText = document.getElementById('quizFeedbackText');
+
+      document.querySelectorAll('.quiz-opt-btn').forEach(b => b.classList.add('pointer-events-none'));
+
+      if (optIdx === q.correct) {
+        playSound('correct');
+        quizScore++;
+        btnEl.classList.replace('bg-slate-50', 'bg-emerald-100');
+        btnEl.classList.replace('border-slate-200', 'border-emerald-500');
+        feedbackBox.className = 'p-4 rounded-2xl text-center font-bold flex justify-between items-center bg-emerald-100 text-emerald-800 border border-emerald-300';
+        feedbackText.innerText = 'Correct! Outstanding! 🌟';
+      } else {
+        playSound('wrong');
+        btnEl.classList.replace('bg-slate-50', 'bg-rose-100');
+        btnEl.classList.replace('border-slate-200', 'border-rose-400');
+        
+        // Highlight correct one
+        const allBtns = document.querySelectorAll('.quiz-opt-btn');
+        allBtns[q.correct].classList.add('bg-emerald-100', 'border-emerald-500');
+
+        feedbackBox.className = 'p-4 rounded-2xl text-center font-bold flex justify-between items-center bg-rose-100 text-rose-800 border border-rose-300';
+        feedbackText.innerText = `Incorrect! The answer was: "${q.options[q.correct]}"`;
+      }
+
+      feedbackBox.classList.remove('hidden');
+    }
+
+    function nextQuizQuestion() {
+      quizIdx++;
+      if (quizIdx < QUIZ_QUESTIONS.length) {
+        renderQuizQuestion();
+      } else {
+        finishQuiz();
+      }
+    }
+
+    function speakCurrentQuizQuestion() {
+      const q = QUIZ_QUESTIONS[quizIdx];
+      speakText(q.question);
+    }
+
+    function finishQuiz() {
+      document.getElementById('quizActiveScreen').classList.add('hidden');
+      document.getElementById('quizResultScreen').classList.remove('hidden');
+
+      const scoreText = `${quizScore} / ${QUIZ_QUESTIONS.length}`;
+      document.getElementById('quizFinalScore').innerText = scoreText;
+
+      addStars(quizScore * 2);
+
+      // Star rating display
+      let starsHtml = '';
+      for (let i = 0; i < QUIZ_QUESTIONS.length; i++) {
+        if (i < quizScore) {
+          starsHtml += '<i class="fas fa-star text-amber-400"></i>';
+        } else {
+          starsHtml += '<i class="far fa-star text-slate-300"></i>';
+        }
+      }
+      document.getElementById('quizStarsDisplay').innerHTML = starsHtml;
+
+      const msg = document.getElementById('quizMotivationalMsg');
+      if (quizScore === 5) {
+        msg.innerText = "Superb! You are an English Master! 🏆";
+      } else if (quizScore >= 3) {
+        msg.innerText = "Good Job! Keep practicing your vocabulary! 👍";
+      } else {
+        msg.innerText = "Keep practicing! Review the materials tab again! 💪";
+      }
+    }
+
+    /* ============================================================
+       MODULE 4: MINI GAME (COLOR BAG CATCHER)
+       ============================================================ */
+    let canvas, ctx;
+    let gameLoopReq;
+    let gameActive = false;
+    let gameScore = 0;
+    let gameTimer = 30;
+    let gameTimerInterval;
+
+    // Player Bag Object
+    const playerBag = {
+      x: 0,
+      y: 0,
+      width: 70,
+      height: 60,
+      targetColor: 'Blue',
+      colorHex: '#118AB2',
+      speed: 8
+    };
+
+    let fallingItems = [];
+
+    function initGameCanvas() {
+      canvas = document.getElementById('gameCanvas');
+      ctx = canvas.getContext('2d');
+      
+      // Dynamic Canvas Sizing
+      canvas.width = canvas.parentElement.clientWidth;
+      canvas.height = canvas.parentElement.clientHeight;
+
+      playerBag.x = canvas.width / 2 - playerBag.width / 2;
+      playerBag.y = canvas.height - playerBag.height - 10;
+
+      // Event Listeners for Touch/Keyboard
+      window.addEventListener('keydown', handleKeyDown);
+      
+      // Touch drag on canvas
+      canvas.addEventListener('touchmove', (e) => {
+        if (!gameActive) return;
+        const rect = canvas.getBoundingClientRect();
+        const touchX = e.touches[0].clientX - rect.left;
+        playerBag.x = touchX - playerBag.width / 2;
+      });
+
+      // Onscreen control buttons
+      const btnLeft = document.getElementById('btnLeft');
+      const btnRight = document.getElementById('btnRight');
+      if (btnLeft && btnRight) {
+        btnLeft.onpointerdown = () => playerBag.x -= 30;
+        btnRight.onpointerdown = () => playerBag.x += 30;
+      }
+    }
+
+    function handleKeyDown(e) {
+      if (!gameActive) return;
+      if (e.key === 'ArrowLeft') playerBag.x -= 25;
+      if (e.key === 'ArrowRight') playerBag.x += 25;
+    }
+
+    function startGame() {
+      gameActive = true;
+      gameScore = 0;
+      gameTimer = 30;
+      fallingItems = [];
+
+      document.getElementById('gameStartOverlay').classList.add('hidden');
+      document.getElementById('gameOverOverlay').classList.add('hidden');
+      document.getElementById('gameScoreText').innerText = gameScore;
+      document.getElementById('gameTimeText').innerText = `${gameTimer}s`;
+
+      clearInterval(gameTimerInterval);
+      gameTimerInterval = setInterval(() => {
+        gameTimer--;
+        document.getElementById('gameTimeText').innerText = `${gameTimer}s`;
+        if (gameTimer <= 0) {
+          endGame();
+        }
+      }, 1000);
+
+      // Randomize Bag target color every few seconds
+      setRandomBagColor();
+
+      cancelAnimationFrame(gameLoopReq);
+      gameLoop();
+    }
+
+    function setRandomBagColor() {
+      const colors = [
+        { name: 'Red', hex: '#EF476F' },
+        { name: 'Blue', hex: '#118AB2' },
+        { name: 'Yellow', hex: '#FFD166' },
+        { name: 'Green', hex: '#06D6A0' },
+        { name: 'Pink', hex: '#FF69B4' },
+        { name: 'Purple', hex: '#8338EC' },
+        { name: 'Orange', hex: '#FB5607' }
+      ];
+      const picked = colors[Math.floor(Math.random() * colors.length)];
+      playerBag.targetColor = picked.name;
+      playerBag.colorHex = picked.hex;
+    }
+
+    function spawnFallingItem() {
+      if (Math.random() < 0.04) {
+        const items = [
+          { emoji: '📘', color: 'Blue' },
+          { emoji: '🖊️', color: 'Red' },
+          { emoji: '✏️', color: 'Yellow' },
+          { emoji: '📐', color: 'Green' },
+          { emoji: '🎒', color: 'Purple' }
+        ];
+        const item = items[Math.floor(Math.random() * items.length)];
+        fallingItems.push({
+          x: Math.random() * (canvas.width - 40),
+          y: -40,
+          speed: 2 + Math.random() * 2.5,
+          emoji: item.emoji,
+          color: item.color
+        });
+      }
+    }
+
+    function gameLoop() {
+      if (!gameActive) return;
+
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      // Keep player inside canvas
+      if (playerBag.x < 0) playerBag.x = 0;
+      if (playerBag.x > canvas.width - playerBag.width) playerBag.x = canvas.width - playerBag.width;
+
+      // Draw Player Bag
+      ctx.fillStyle = playerBag.colorHex;
+      ctx.beginPath();
+      ctx.roundRect(playerBag.x, playerBag.y, playerBag.width, playerBag.height, 16);
+      ctx.fill();
+      ctx.lineWidth = 3;
+      ctx.strokeStyle = '#ffffff';
+      ctx.stroke();
+
+      // Bag Label Text
+      ctx.fillStyle = '#ffffff';
+      ctx.font = 'bold 12px Fredoka';
+      ctx.textAlign = 'center';
+      ctx.fillText(`${playerBag.targetColor} Bag`, playerBag.x + playerBag.width / 2, playerBag.y + 35);
+
+      // Spawn & Update Items
+      spawnFallingItem();
+
+      for (let i = fallingItems.length - 1; i >= 0; i--) {
+        const item = fallingItems[i];
+        item.y += item.speed;
+
+        // Draw item emoji
+        ctx.font = '32px sans-serif';
+        ctx.fillText(item.emoji, item.x, item.y);
+
+        // Check collision with bag
+        if (
+          item.y >= playerBag.y &&
+          item.y <= playerBag.y + playerBag.height &&
+          item.x >= playerBag.x - 10 &&
+          item.x <= playerBag.x + playerBag.width + 10
+        ) {
+          if (item.color === playerBag.targetColor) {
+            playSound('correct');
+            gameScore += 10;
+            document.getElementById('gameScoreText').innerText = gameScore;
+            addStars(1);
+          } else {
+            playSound('wrong');
+          }
+          fallingItems.splice(i, 1);
+          // Randomize bag color occasionally after catch
+          if (Math.random() < 0.4) setRandomBagColor();
+          continue;
+        }
+
+        // Remove if past screen
+        if (item.y > canvas.height + 40) {
+          fallingItems.splice(i, 1);
+        }
+      }
+
+      gameLoopReq = requestAnimationFrame(gameLoop);
+    }
+
+    function endGame() {
+      gameActive = false;
+      clearInterval(gameTimerInterval);
+      cancelAnimationFrame(gameLoopReq);
+
+      document.getElementById('finalGameScore').innerText = gameScore;
+      document.getElementById('gameOverOverlay').classList.remove('hidden');
+    }
+
+    /* ============================================================
+       MODULE 5: REFLECTION (REFLEKSI)
+       ============================================================ */
+    function selectMood(mood) {
+      playSound('pop');
+      selectedMood = mood;
+      document.querySelectorAll('.mood-btn').forEach(b => b.classList.remove('border-amber-400', 'bg-amber-50'));
+      const activeMoodBtn = document.getElementById(`mood-${mood}`);
+      if (activeMoodBtn) {
+        activeMoodBtn.classList.add('border-amber-400', 'bg-amber-50');
+      }
+      showToast(`Mood saved: ${mood}! 😄`, '🌟');
+    }
+
+    function updateReflectionProgress() {
+      playSound('pop');
+      const checks = document.querySelectorAll('.refl-check:checked').length;
+      if (checks > 0) {
+        addStars(1);
+      }
+    }
+
+    function generateCertificate() {
+      playSound('correct');
+      const nameInput = document.getElementById('studentNameInput').value.trim();
+      const studentName = nameInput || 'Super Student';
+
+      document.getElementById('certName').innerText = studentName;
+      document.getElementById('certStarsCount').innerText = `Stars Earned: ${globalStars} ⭐`;
+      
+      const certBox = document.getElementById('certificateBox');
+      certBox.classList.remove('hidden');
+      certBox.scrollIntoView({ behavior: 'smooth' });
+
+      showToast('Certificate generated! Outstanding achievement!', '🏆');
+    }
+
+    /* ============================================================
+       INITIALIZATION ON PAGE LOAD
+       ============================================================ */
+    window.onload = function() {
+      renderMaterials('all');
+      initMatchingGame();
+      initSentenceBuilder();
+      initGameCanvas();
+    };
+
+    // Responsive Canvas Resize Listener
+    window.addEventListener('resize', () => {
+      if (canvas) {
+        canvas.width = canvas.parentElement.clientWidth;
+        canvas.height = canvas.parentElement.clientHeight;
+        playerBag.y = canvas.height - playerBag.height - 10;
+      }
+    });
+  </script>
+</body>
+</html>
