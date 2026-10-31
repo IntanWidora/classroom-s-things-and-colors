@@ -547,11 +547,11 @@
       { id: 'book', name: 'Book', category: 'objects', color: 'Blue', colorHex: '#118AB2', emoji: '📘', sampleSentence: 'It is a book.' },
       { id: 'pencil', name: 'Pencil', category: 'objects', color: 'Yellow', colorHex: '#FFD166', emoji: '✏️', sampleSentence: 'It is a pencil.' },
       { id: 'pen', name: 'Pen', category: 'objects', color: 'Red', colorHex: '#EF476F', emoji: '🖊️', sampleSentence: 'It is a pen.' },
-      { id: 'ruler', name: 'Ruler', category: 'objects', color: 'Green', colorHex: '#06D6A0', emoji: '📐', sampleSentence: 'It is a ruler.' },
-      { id: 'eraser', name: 'Eraser', category: 'objects', color: 'Pink', colorHex: '#FFB703', emoji: '🧹', sampleSentence: 'It is an eraser.' },
-      { id: 'bag', name: 'Bag', category: 'objects', color: 'Purple', colorHex: '#8338EC', emoji: '🎒', sampleSentence: 'It is a bag.' },
+      { id: 'ruler', name: 'Ruler', category: 'objects', color: 'Green', colorHex: '#06D6A0', emoji: '<i class="fas fa-ruler-horizontal text-emerald-500"></i>', sampleSentence: 'It is a green ruler.' },
+      { id: 'eraser', name: 'Eraser', category: 'objects', color: 'Pink', colorHex: '#FF69B4', emoji: '<i class="fas fa-eraser text-pink-500"></i>', sampleSentence: 'It is an eraser.' },
+      { id: 'bag', name: 'Bag', category: 'objects', color: 'Purple', colorHex: '#8338EC', emoji: '<svg class="w-12 h-12 inline-block" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M22 16 C22 10, 42 10, 42 16" stroke="#6C2BD9" stroke-width="4" stroke-linecap="round"/><rect x="14" y="18" width="36" height="38" rx="8" fill="#8338EC"/><rect x="20" y="32" width="24" height="18" rx="4" fill="#A855F7"/><circle cx="32" cy="41" r="3" fill="#FCD34D"/></svg>', sampleSentence: 'It is a purple bag.' },
       { id: 'chair', name: 'Chair', category: 'objects', color: 'Brown', colorHex: '#FB5607', emoji: '🪑', sampleSentence: 'It is a chair.' },
-      { id: 'table', name: 'Table', category: 'objects', color: 'Orange', colorHex: '#F77F00', emoji: '🛋️', sampleSentence: 'It is a table.' },
+      { id: 'table', name: 'Table', category: 'objects', color: 'Purple', colorHex: '#8338EC', emoji: '<svg class="w-12 h-12 inline-block" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="4" y="20" width="56" height="10" rx="3" fill="#8338EC"/><rect x="10" y="30" width="7" height="26" rx="2" fill="#6C2BD9"/><rect x="47" y="30" width="7" height="26" rx="2" fill="#6C2BD9"/><path d="M4 30 L60 30" stroke="#6C2BD9" stroke-width="2"/></svg>', sampleSentence: 'It is a purple table.' },
       
       // 12 Complete Colors
       { id: 'c-red', name: 'Red', category: 'colors', colorHex: '#EF476F', emoji: '🔴', sampleSentence: 'It is red.' },
@@ -562,7 +562,7 @@
       { id: 'c-purple', name: 'Purple', category: 'colors', colorHex: '#8338EC', emoji: '🟣', sampleSentence: 'It is purple.' },
       { id: 'c-orange', name: 'Orange', category: 'colors', colorHex: '#FB5607', emoji: '🟠', sampleSentence: 'It is orange.' },
       { id: 'c-brown', name: 'Brown', category: 'colors', colorHex: '#795548', emoji: '🟤', sampleSentence: 'It is brown.' },
-      { id: 'c-black', name: 'Black', category: 'colors', colorHex: '#212121', emoji: '⚫', sampleSentence: 'It is black.' },
+      { id: 'c-black', name: 'Purple', category: 'colors', colorHex: '#8338EC', emoji: '🟣', sampleSentence: 'It is purple.' },
       { id: 'c-white', name: 'White', category: 'colors', colorHex: '#E0E0E0', emoji: '⚪', sampleSentence: 'It is white.' },
       { id: 'c-gray', name: 'Gray', category: 'colors', colorHex: '#9E9E9E', emoji: '🩶', sampleSentence: 'It is gray.' },
       { id: 'c-lightblue', name: 'Light Blue', category: 'colors', colorHex: '#00BCD4', emoji: '🩵', sampleSentence: 'It is light blue.' }
@@ -589,7 +589,7 @@
       },
       {
         question: "What is this?",
-        media: "📐",
+        media: '<i class="fas fa-ruler-horizontal text-emerald-500 text-6xl"></i>',
         options: ["It is a table.", "It is a pen.", "It is a ruler.", "It is a book."],
         correct: 2
       },
@@ -618,408 +618,359 @@
     const builderData = [
       { question: "What is this?", emoji: "📘", label: "Blue Book", targetSentence: ["It", "is", "a", "blue", "book."], choices: ["It", "is", "a", "blue", "book.", "red", "pencil", "table"] },
       { question: "What color is it?", emoji: "✏️", label: "Yellow Pencil", targetSentence: ["It", "is", "yellow."], choices: ["It", "is", "yellow.", "blue", "chair", "bag"] },
-      { question: "What is this?", emoji: "📐", label: "Green Ruler", targetSentence: ["It", "is", "a", "green", "ruler."], choices: ["It", "is", "a", "green", "ruler.", "eraser", "pen"] },
-      { question: "What is this?", emoji: "🎒", label: "Purple Bag", targetSentence: ["It", "is", "a", "purple", "bag."], choices: ["It", "is", "a", "purple", "bag.", "yellow", "chair"] },
-      { question: "What color is it?", emoji: "🔴", label: "Red Color", targetSentence: ["It", "is", "red."], choices: ["It", "is", "red.", "green", "blue", "yellow"] }
+      { question: "What is this?", emoji: '<i class="fas fa-ruler-horizontal text-emerald-500 text-6xl"></i>', label: "Green Ruler", targetSentence: ["It", "is", "a", "green", "ruler."], choices: ["It", "is", "a", "green", "ruler.", "eraser", "pen"] },
+      { question: "What is this?", emoji: '<svg class="w-20 h-20 inline-block" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M22 16 C22 10, 42 10, 42 16" stroke="#6C2BD9" stroke-width="4" stroke-linecap="round"/><rect x="14" y="18" width="36" height="38" rx="8" fill="#8338EC"/><rect x="20" y="32" width="24" height="18" rx="4" fill="#A855F7"/><circle cx="32" cy="41" r="3" fill="#FCD34D"/></svg>', label: "Purple Bag", targetSentence: ["It", "is", "a", "purple", "bag."], choices: ["It", "is", "a", "purple", "bag.", "yellow", "chair"] },
+      { question: "What is this?", emoji: '<i class="fas fa-eraser text-pink-500 text-6xl"></i>', label: "Pink Eraser", targetSentence: ["It", "is", "an", "eraser."], choices: ["It", "is", "an", "eraser.", "green", "blue", "yellow"] }
     ];
     let userBuiltSentence = [];
 
     // Quiz State
-    let quizIdx = 0;
+    let quizCurrentIdx = 0;
     let quizScore = 0;
-    let quizSelectedOpt = null;
 
-    // Reflection State
-    let selectedMood = '';
+    // Mini Game State
+    let gameScore = 0;
+    let gameTimer = 30;
+    let gameInterval = null;
+    let gameRunning = false;
+    let canvas, ctx;
+    let playerBag = { x: 0, width: 80, height: 60 };
+    let fallingItems = [];
+    let keys = {};
+    const gameColors = [
+      { name: 'Purple', hex: '#8338EC', emoji: '🎒' },
+      { name: 'Red', hex: '#EF476F', emoji: '🖊️' },
+      { name: 'Blue', hex: '#118AB2', emoji: '📘' },
+      { name: 'Yellow', hex: '#FFD166', emoji: '✏️' }
+    ];
+    let targetGameColor = gameColors[0];
 
     /* ============================================================
-       AUDIO / TTS & SOUND FX (Web Audio API)
+       AUDIO & NAVIGATION FUNCTIONS
        ============================================================ */
-    const AudioCtx = window.AudioContext || window.webkitAudioContext;
-    let audioCtx = null;
-
-    function initAudioContext() {
-      if (!audioCtx) {
-        audioCtx = new AudioCtx();
-      }
-    }
-
-    function playSound(type) {
-      if (!audioEnabled) return;
-      try {
-        initAudioContext();
-        const osc = audioCtx.createOscillator();
-        const gain = audioCtx.createGain();
-        osc.connect(gain);
-        gain.connect(audioCtx.destination);
-
-        const now = audioCtx.currentTime;
-
-        if (type === 'correct') {
-          osc.type = 'sine';
-          osc.frequency.setValueAtTime(523.25, now); // C5
-          osc.frequency.setValueAtTime(659.25, now + 0.1); // E5
-          osc.frequency.setValueAtTime(783.99, now + 0.2); // G5
-          gain.gain.setValueAtTime(0.3, now);
-          gain.gain.exponentialRampToValueAtTime(0.01, now + 0.4);
-          osc.start(now);
-          osc.stop(now + 0.4);
-        } else if (type === 'wrong') {
-          osc.type = 'triangle';
-          osc.frequency.setValueAtTime(300, now);
-          osc.frequency.setValueAtTime(220, now + 0.15);
-          gain.gain.setValueAtTime(0.3, now);
-          gain.gain.exponentialRampToValueAtTime(0.01, now + 0.3);
-          osc.start(now);
-          osc.stop(now + 0.3);
-        } else if (type === 'pop') {
-          osc.type = 'sine';
-          osc.frequency.setValueAtTime(400, now);
-          osc.frequency.exponentialRampToValueAtTime(800, now + 0.08);
-          gain.gain.setValueAtTime(0.2, now);
-          gain.gain.exponentialRampToValueAtTime(0.01, now + 0.08);
-          osc.start(now);
-          osc.stop(now + 0.08);
-        }
-      } catch (e) {
-        // Fallback gracefully
-      }
+    function speakText(text) {
+      if (!audioEnabled || !('speechSynthesis' in window)) return;
+      window.speechSynthesis.cancel();
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = 'en-US';
+      utterance.rate = 0.65; // Slower EFL speech rate
+      utterance.pitch = 1.1;
+      window.speechSynthesis.speak(utterance);
     }
 
     function toggleAudio() {
       audioEnabled = !audioEnabled;
       const btn = document.getElementById('ttsToggleBtn');
-      const icon = document.getElementById('ttsIcon');
       if (audioEnabled) {
-        btn.classList.replace('bg-slate-200', 'bg-sky-100');
-        btn.classList.replace('text-slate-700', 'bg-sky-100');
-        icon.className = 'fas fa-volume-up text-base';
-        showToast('🔊 Audio Pronunciation ON');
+        btn.className = "px-3 py-1.5 bg-sky-100 text-sky-700 hover:bg-sky-200 rounded-xl text-sm font-bold flex items-center gap-2 transition shadow-sm";
+        btn.innerHTML = `<i id="ttsIcon" class="fas fa-volume-up text-base"></i><span class="hidden sm:inline">Audio: On</span>`;
+        showToast("Audio Speech ON 🔊", "🔊");
       } else {
-        btn.classList.replace('bg-sky-100', 'bg-slate-200');
-        icon.className = 'fas fa-volume-mute text-base';
-        showToast('🔇 Audio Pronunciation OFF');
+        btn.className = "px-3 py-1.5 bg-slate-200 text-slate-600 hover:bg-slate-300 rounded-xl text-sm font-bold flex items-center gap-2 transition shadow-sm";
+        btn.innerHTML = `<i id="ttsIcon" class="fas fa-volume-mute text-base"></i><span class="hidden sm:inline">Audio: Off</span>`;
+        showToast("Audio Muted 🔇", "🔇");
       }
     }
 
-    function speakText(text) {
-      if (!audioEnabled) return;
-      if ('speechSynthesis' in window) {
-        window.speechSynthesis.cancel(); // Stop active speech
-        const utterance = new SpeechSynthesisUtterance(text);
-        utterance.lang = 'en-US';
-        utterance.rate = 0.65; // Slower rate tailored for EFL primary learners
-        utterance.pitch = 1.0;
-        window.speechSynthesis.speak(utterance);
-      }
-    }
+    function switchTab(tabId) {
+      currentTab = tabId;
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+      document.getElementById(`sec-${tabId}`).classList.remove('hidden');
 
-    /* ============================================================
-       NAVIGATION & UI HELPERS
-       ============================================================ */
-    function switchTab(tabName) {
-      playSound('pop');
-      currentTab = tabName;
-      
-      // Update Tab Styles
       document.querySelectorAll('.nav-tab').forEach(btn => {
-        btn.className = 'nav-tab px-4 py-2 rounded-t-2xl font-bold text-base md:text-lg flex items-center gap-2 transition bg-slate-100 text-slate-600 hover:bg-slate-200';
+        btn.className = "nav-tab px-4 py-2 rounded-t-2xl font-bold text-base md:text-lg flex items-center gap-2 transition bg-slate-100 text-slate-600 hover:bg-slate-200";
       });
-      const activeBtn = document.getElementById(`tab-${tabName}`);
+      const activeBtn = document.getElementById(`tab-${tabId}`);
       if (activeBtn) {
-        activeBtn.className = 'nav-tab px-4 py-2 rounded-t-2xl font-bold text-base md:text-lg flex items-center gap-2 transition bg-amber-400 text-slate-900 border-t-2 border-x-2 border-amber-500 shadow-sm';
+        activeBtn.className = "nav-tab px-4 py-2 rounded-t-2xl font-bold text-base md:text-lg flex items-center gap-2 transition bg-amber-400 text-slate-900 border-t-2 border-x-2 border-amber-500 shadow-sm";
       }
 
-      // Hide all contents
-      document.querySelectorAll('.tab-content').forEach(sec => sec.classList.add('hidden'));
-      
-      // Show target content
-      const targetSec = document.getElementById(`sec-${tabName}`);
-      if (targetSec) targetSec.classList.remove('hidden');
-
-      // Specific initializations
-      if (tabName === 'practice') {
+      if (tabId === 'practice') {
         initMatchingGame();
-        initSentenceBuilder();
-      } else if (tabName === 'minigame') {
-        initGameCanvas();
+        renderSentenceBuilder();
+      } else if (tabId === 'minigame') {
+        initCanvas();
       }
     }
 
-    function addStars(num) {
-      globalStars += num;
-      document.getElementById('globalStars').innerText = globalStars;
-    }
+    function filterMaterials(category = 'all') {
+      document.querySelectorAll('.mat-filter-btn').forEach(btn => {
+        btn.className = "mat-filter-btn px-4 py-2 rounded-xl font-bold text-sm bg-white text-slate-700 hover:bg-slate-100 border border-slate-200 shadow-sm";
+      });
+      const activeFilterBtn = document.getElementById(`filter-${category}`);
+      if (activeFilterBtn) {
+        activeFilterBtn.className = "mat-filter-btn px-4 py-2 rounded-xl font-bold text-sm bg-indigo-600 text-white shadow";
+      }
 
-    function showToast(msg, icon = '✨') {
-      const toast = document.getElementById('toast');
-      document.getElementById('toastIcon').innerText = icon;
-      document.getElementById('toastMessage').innerText = msg;
-      toast.classList.remove('translate-y-20', 'opacity-0');
-      setTimeout(() => {
-        toast.classList.add('translate-y-20', 'opacity-0');
-      }, 2500);
-    }
-
-    /* ============================================================
-       MODULE 1: MATERIALS (LEARN) - SPLIT VIEW
-       ============================================================ */
-    function renderMaterials(filter = 'all') {
       const container = document.getElementById('materialsContainer');
       container.innerHTML = '';
 
-      const objectsList = SCHOOL_DATA.filter(i => i.category === 'objects');
-      const colorsList = SCHOOL_DATA.filter(i => i.category === 'colors');
+      const objects = SCHOOL_DATA.filter(item => item.category === 'objects');
+      const colors = SCHOOL_DATA.filter(item => item.category === 'colors');
 
-      // Section 1: School Objects
-      if (filter === 'all' || filter === 'objects') {
+      if (category === 'all' || category === 'objects') {
         const objSec = document.createElement('div');
-        objSec.className = 'space-y-3';
+        objSec.className = "space-y-4";
         objSec.innerHTML = `
-          <div class="flex items-center gap-2 border-b-2 border-sky-200 pb-2">
+          <div class="flex items-center gap-2 border-b-2 border-amber-300 pb-2">
             <span class="text-2xl">🎒</span>
-            <h3 class="text-xl font-bold text-slate-800">School Things (${objectsList.length} Items)</h3>
+            <h3 class="text-xl font-bold text-slate-800">School Things (Benda Sekolah)</h3>
+            <span class="text-xs bg-amber-100 text-amber-800 font-bold px-2.5 py-0.5 rounded-full ml-auto">${objects.length} Items</span>
           </div>
-          <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4" id="gridObjects"></div>
+          <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4" id="objectsGrid"></div>
         `;
         container.appendChild(objSec);
-
-        const gridObj = objSec.querySelector('#gridObjects');
-        objectsList.forEach(item => gridObj.appendChild(createMaterialCard(item)));
+        const objGrid = objSec.querySelector('#objectsGrid');
+        objects.forEach(item => objGrid.appendChild(createMaterialCard(item)));
       }
 
-      // Section 2: Colors (12 colors)
-      if (filter === 'all' || filter === 'colors') {
-        const colSec = document.createElement('div');
-        colSec.className = 'space-y-3';
-        colSec.innerHTML = `
-          <div class="flex items-center gap-2 border-b-2 border-amber-200 pb-2">
+      if (category === 'all' || category === 'colors') {
+        const colorSec = document.createElement('div');
+        colorSec.className = "space-y-4";
+        colorSec.innerHTML = `
+          <div class="flex items-center gap-2 border-b-2 border-indigo-300 pb-2">
             <span class="text-2xl">🎨</span>
-            <h3 class="text-xl font-bold text-slate-800">12 Colors Palette</h3>
+            <h3 class="text-xl font-bold text-slate-800">12 Colors (Warna)</h3>
+            <span class="text-xs bg-indigo-100 text-indigo-800 font-bold px-2.5 py-0.5 rounded-full ml-auto">${colors.length} Colors</span>
           </div>
-          <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4" id="gridColors"></div>
+          <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4" id="colorsGrid"></div>
         `;
-        container.appendChild(colSec);
-
-        const gridCol = colSec.querySelector('#gridColors');
-        colorsList.forEach(item => gridCol.appendChild(createMaterialCard(item)));
+        container.appendChild(colorSec);
+        const colorGrid = colorSec.querySelector('#colorsGrid');
+        colors.forEach(item => colorGrid.appendChild(createMaterialCard(item)));
       }
     }
 
     function createMaterialCard(item) {
       const card = document.createElement('div');
-      card.className = 'bg-white border-2 border-slate-100 rounded-2xl p-4 shadow-sm hover:shadow-md transition cursor-pointer flex flex-col items-center text-center space-y-2 group transform hover:-translate-y-1';
+      card.className = "bg-white border-2 border-slate-100 hover:border-amber-300 rounded-2xl p-4 shadow-sm hover:shadow-md transition-all duration-200 cursor-pointer flex flex-col items-center text-center space-y-2 group transform hover:-translate-y-1";
       card.onclick = () => {
-        playSound('pop');
-        speakText(item.name + ". " + item.sampleSentence);
+        speakText(`${item.name}. ${item.sampleSentence}`);
+        showToast(`"It is ${item.name}!"`, "🔊");
       };
 
       card.innerHTML = `
-        <div class="text-5xl group-hover:scale-110 transition duration-200 mb-1">${item.emoji}</div>
-        <div class="font-bold text-lg text-slate-800">${item.name}</div>
-        <span class="text-xs px-2.5 py-0.5 rounded-full font-bold" style="background-color: ${item.colorHex}20; color: ${item.colorHex}">
-          ${item.category === 'objects' ? 'School Object' : 'Color'}
-        </span>
-        <p class="text-xs text-slate-500 italic mt-1">"${item.sampleSentence}"</p>
-        <div class="w-7 h-7 rounded-full bg-slate-100 text-slate-500 group-hover:bg-amber-400 group-hover:text-slate-900 flex items-center justify-center text-xs mt-2 transition">
-          <i class="fas fa-volume-up"></i>
+        <div class="w-20 h-20 bg-slate-50 rounded-2xl flex items-center justify-center text-4xl shadow-inner group-hover:scale-110 transition-transform">
+          ${item.emoji}
+        </div>
+        <div class="font-bold text-slate-800 text-lg flex items-center gap-1.5">
+          <span>${item.name}</span>
+          <i class="fas fa-volume-up text-xs text-amber-500 opacity-80 group-hover:opacity-100"></i>
+        </div>
+        <div class="text-xs text-slate-500 font-semibold bg-slate-100 px-2.5 py-1 rounded-full group-hover:bg-amber-100 group-hover:text-amber-800 transition">
+          "${item.sampleSentence}"
         </div>
       `;
       return card;
     }
 
-    function filterMaterials(cat) {
-      playSound('pop');
-      document.querySelectorAll('.mat-filter-btn').forEach(b => {
-        b.className = 'mat-filter-btn px-4 py-2 rounded-xl font-bold text-sm bg-white text-slate-700 hover:bg-slate-100 border border-slate-200 shadow-sm';
-      });
-      const activeBtn = document.getElementById(`filter-${cat}`);
-      if (activeBtn) {
-        activeBtn.className = 'mat-filter-btn px-4 py-2 rounded-xl font-bold text-sm bg-indigo-600 text-white shadow';
-      }
-      renderMaterials(cat);
-    }
-
     /* ============================================================
-       MODULE 2: PRACTICE ACTIVITIES
+       PRACTICE 1: MATCHING GAME
        ============================================================ */
-    function switchPracticeMode(mode) {
-      playSound('pop');
-      document.getElementById('prac-btn-match').className = 'px-5 py-2.5 rounded-2xl font-bold text-sm bg-white text-slate-700 hover:bg-slate-100 border border-slate-200 shadow-sm';
-      document.getElementById('prac-btn-builder').className = 'px-5 py-2.5 rounded-2xl font-bold text-sm bg-white text-slate-700 hover:bg-slate-100 border border-slate-200 shadow-sm';
+    const matchItems = [
+      { id: 1, name: 'Book', emoji: '📘' },
+      { id: 2, name: 'Pencil', emoji: '✏️' },
+      { id: 3, name: 'Eraser', emoji: '<i class="fas fa-eraser text-pink-500 text-3xl"></i>' },
+      { id: 4, name: 'Ruler', emoji: '<i class="fas fa-ruler-horizontal text-emerald-500 text-3xl"></i>' }
+    ];
 
-      if (mode === 'match') {
-        document.getElementById('prac-btn-match').className = 'px-5 py-2.5 rounded-2xl font-bold text-sm bg-emerald-500 text-white shadow-md';
-        document.getElementById('practice-match').classList.remove('hidden');
-        document.getElementById('practice-builder').classList.add('hidden');
-      } else {
-        document.getElementById('prac-btn-builder').className = 'px-5 py-2.5 rounded-2xl font-bold text-sm bg-emerald-500 text-white shadow-md';
-        document.getElementById('practice-match').classList.add('hidden');
-        document.getElementById('practice-builder').classList.remove('hidden');
-      }
-    }
-
-    // Matching Activity Logic
     function initMatchingGame() {
+      selectedMatchPic = null;
+      selectedMatchWord = null;
+      matchPairsLeft = matchItems.length;
+
       const picsCol = document.getElementById('matchPicturesCol');
       const wordsCol = document.getElementById('matchWordsCol');
       picsCol.innerHTML = '';
       wordsCol.innerHTML = '';
-      selectedMatchPic = null;
-      selectedMatchWord = null;
 
-      // Pick 4 items randomly
-      const shuffled = [...SCHOOL_DATA.filter(i => i.category === 'objects')].sort(() => 0.5 - Math.random()).slice(0, 4);
-      matchPairsLeft = shuffled.length;
+      const shuffledPics = [...matchItems].sort(() => Math.random() - 0.5);
+      const shuffledWords = [...matchItems].sort(() => Math.random() - 0.5);
 
-      const wordsList = [...shuffled].sort(() => 0.5 - Math.random());
-
-      shuffled.forEach(item => {
+      shuffledPics.forEach(item => {
         const btn = document.createElement('button');
+        btn.className = "w-full p-4 bg-slate-50 border-2 border-slate-200 rounded-2xl flex items-center justify-center text-4xl hover:border-emerald-400 transition shadow-sm match-pic-btn";
         btn.dataset.id = item.id;
-        btn.className = 'match-pic-btn w-full p-4 bg-slate-50 border-2 border-slate-200 hover:border-emerald-400 rounded-2xl text-4xl flex items-center justify-center gap-3 transition shadow-sm';
-        btn.innerHTML = `<span>${item.emoji}</span>`;
-        btn.onclick = () => selectMatchItem('pic', btn, item.id);
+        btn.innerHTML = item.emoji;
+        btn.onclick = () => selectMatchPic(btn, item.id);
         picsCol.appendChild(btn);
       });
 
-      wordsList.forEach(item => {
+      shuffledWords.forEach(item => {
         const btn = document.createElement('button');
+        btn.className = "w-full p-4 bg-slate-50 border-2 border-slate-200 rounded-2xl font-bold text-slate-800 text-lg flex items-center justify-center hover:border-emerald-400 transition shadow-sm match-word-btn";
         btn.dataset.id = item.id;
-        btn.className = 'match-word-btn w-full p-4 bg-slate-50 border-2 border-slate-200 hover:border-emerald-400 rounded-2xl font-bold text-lg text-slate-800 transition shadow-sm';
-        btn.innerText = item.name;
-        btn.onclick = () => selectMatchItem('word', btn, item.id);
+        btn.textContent = item.name;
+        btn.onclick = () => selectMatchWord(btn, item.id);
         wordsCol.appendChild(btn);
       });
     }
 
-    function selectMatchItem(type, el, id) {
-      playSound('pop');
-      if (type === 'pic') {
-        document.querySelectorAll('.match-pic-btn').forEach(b => b.classList.remove('border-emerald-500', 'bg-emerald-50'));
-        el.classList.add('border-emerald-500', 'bg-emerald-50');
-        selectedMatchPic = { el, id };
-      } else {
-        document.querySelectorAll('.match-word-btn').forEach(b => b.classList.remove('border-emerald-500', 'bg-emerald-50'));
-        el.classList.add('border-emerald-500', 'bg-emerald-50');
-        selectedMatchWord = { el, id };
-      }
+    function selectMatchPic(btn, id) {
+      document.querySelectorAll('.match-pic-btn').forEach(b => b.classList.remove('border-emerald-500', 'bg-emerald-50'));
+      btn.classList.add('border-emerald-500', 'bg-emerald-50');
+      selectedMatchPic = { btn, id };
+      checkMatchPair();
+    }
 
-      if (selectedMatchPic && selectedMatchWord) {
-        if (selectedMatchPic.id === selectedMatchWord.id) {
-          // Correct Match!
-          playSound('correct');
-          selectedMatchPic.el.classList.add('opacity-40', 'pointer-events-none', 'bg-emerald-100');
-          selectedMatchWord.el.classList.add('opacity-40', 'pointer-events-none', 'bg-emerald-100');
-          selectedMatchPic.el.innerHTML += `<i class="fas fa-check-circle text-emerald-500 text-xl ml-auto"></i>`;
-          
-          addStars(1);
-          showToast('Correct Match! +1 Star ⭐', '🎉');
-          matchPairsLeft--;
+    function selectMatchWord(btn, id) {
+      document.querySelectorAll('.match-word-btn').forEach(b => b.classList.remove('border-emerald-500', 'bg-emerald-50'));
+      btn.classList.add('border-emerald-500', 'bg-emerald-50');
+      selectedMatchWord = { btn, id };
+      checkMatchPair();
+    }
 
-          if (matchPairsLeft === 0) {
-            setTimeout(() => {
-              showToast('Awesome! All matches completed!', '🏆');
-            }, 500);
-          }
-        } else {
-          // Wrong Match
-          playSound('wrong');
-          showToast('Try again!', '❌');
-        }
+    function checkMatchPair() {
+      if (!selectedMatchPic || !selectedMatchWord) return;
+
+      if (selectedMatchPic.id === selectedMatchWord.id) {
+        speakText("Correct!");
+        showToast("Great Job! Match found! ✨", "🎉");
+        addStars(1);
+
+        selectedMatchPic.btn.className = "w-full p-4 bg-emerald-100 border-2 border-emerald-400 rounded-2xl flex items-center justify-center text-4xl opacity-50 cursor-not-allowed";
+        selectedMatchWord.btn.className = "w-full p-4 bg-emerald-100 border-2 border-emerald-400 rounded-2xl font-bold text-emerald-800 text-lg flex items-center justify-center opacity-50 cursor-not-allowed";
+        selectedMatchPic.btn.disabled = true;
+        selectedMatchWord.btn.disabled = true;
+
         selectedMatchPic = null;
         selectedMatchWord = null;
+        matchPairsLeft--;
+
+        if (matchPairsLeft === 0) {
+          setTimeout(() => {
+            showToast("Awesome! You completed all matches! 🏆", "🌟");
+            speakText("Awesome! You matched everything!");
+          }, 400);
+        }
+      } else {
+        speakText("Try again.");
+        showToast("Not quite! Try another match.", "🤔");
+        selectedMatchPic.btn.classList.add('border-rose-400', 'bg-rose-50');
+        selectedMatchWord.btn.classList.add('border-rose-400', 'bg-rose-50');
+        setTimeout(() => {
+          if (selectedMatchPic) selectedMatchPic.btn.classList.remove('border-rose-400', 'bg-rose-50', 'border-emerald-500', 'bg-emerald-50');
+          if (selectedMatchWord) selectedMatchWord.btn.classList.remove('border-rose-400', 'bg-rose-50', 'border-emerald-500', 'bg-emerald-50');
+          selectedMatchPic = null;
+          selectedMatchWord = null;
+        }, 600);
       }
     }
 
     function resetMatchingGame() {
       initMatchingGame();
+      showToast("Board reshuffled!", "🔄");
     }
 
-    // Sentence Builder Activity Logic
-    function initSentenceBuilder() {
-      const data = builderData[currentBuilderIdx];
-      document.getElementById('builderQuestionNum').innerText = currentBuilderIdx + 1;
-      document.getElementById('builderPrompt').innerText = data.question;
-      document.getElementById('builderImage').innerText = data.emoji;
-      document.getElementById('builderImageLabel').innerText = data.label;
-      
-      userBuiltSentence = [];
-      renderSentenceDropzone();
+    /* ============================================================
+       PRACTICE 2: SENTENCE BUILDER
+       ============================================================ */
+    function switchPracticeMode(mode) {
+      if (mode === 'match') {
+        document.getElementById('practice-match').classList.remove('hidden');
+        document.getElementById('practice-builder').classList.add('hidden');
+        document.getElementById('prac-btn-match').className = "px-5 py-2.5 rounded-2xl font-bold text-sm bg-emerald-500 text-white shadow-md";
+        document.getElementById('prac-btn-builder').className = "px-5 py-2.5 rounded-2xl font-bold text-sm bg-white text-slate-700 hover:bg-slate-100 border border-slate-200 shadow-sm";
+      } else {
+        document.getElementById('practice-match').classList.add('hidden');
+        document.getElementById('practice-builder').classList.remove('hidden');
+        document.getElementById('prac-btn-builder').className = "px-5 py-2.5 rounded-2xl font-bold text-sm bg-emerald-500 text-white shadow-md";
+        document.getElementById('prac-btn-match').className = "px-5 py-2.5 rounded-2xl font-bold text-sm bg-white text-slate-700 hover:bg-slate-100 border border-slate-200 shadow-sm";
+        renderSentenceBuilder();
+      }
+    }
 
-      const wordBank = document.getElementById('wordBank');
-      wordBank.innerHTML = '';
-      
-      // Shuffle choices
-      const shuffledChoices = [...data.choices].sort(() => 0.5 - Math.random());
-      shuffledChoices.forEach((word, idx) => {
+    function renderSentenceBuilder() {
+      const data = builderData[currentBuilderIdx];
+      document.getElementById('builderQuestionNum').textContent = currentBuilderIdx + 1;
+      document.getElementById('builderPrompt').textContent = data.question;
+      document.getElementById('builderImage').innerHTML = data.emoji;
+      document.getElementById('builderImageLabel').textContent = data.label;
+
+      userBuiltSentence = [];
+      updateDropzone();
+
+      const bank = document.getElementById('wordBank');
+      bank.innerHTML = '';
+      const shuffledChoices = [...data.choices].sort(() => Math.random() - 0.5);
+      shuffledChoices.forEach(word => {
         const btn = document.createElement('button');
-        btn.className = 'px-4 py-2 bg-white border-2 border-indigo-200 hover:border-indigo-400 text-indigo-900 font-bold rounded-xl text-base shadow-sm active:scale-95 transition';
-        btn.innerText = word;
+        btn.className = "px-4 py-2 bg-slate-100 hover:bg-amber-100 text-slate-800 font-bold rounded-xl border border-slate-200 shadow-sm transition active:scale-95";
+        btn.textContent = word;
         btn.onclick = () => {
-          playSound('pop');
           userBuiltSentence.push(word);
           btn.disabled = true;
           btn.classList.add('opacity-40');
-          renderSentenceDropzone();
+          updateDropzone();
+          speakText(word);
         };
-        wordBank.appendChild(btn);
+        bank.appendChild(btn);
       });
     }
 
-    function renderSentenceDropzone() {
+    function updateDropzone() {
       const dz = document.getElementById('sentenceDropzone');
       dz.innerHTML = '';
       if (userBuiltSentence.length === 0) {
-        dz.innerHTML = `<span class="text-slate-400 font-normal italic text-sm">Tap words below to form a sentence...</span>`;
+        dz.innerHTML = '<span class="text-sm text-slate-400 font-normal italic">Tap words below to place them here...</span>';
         return;
       }
-
       userBuiltSentence.forEach((word, idx) => {
         const span = document.createElement('span');
-        span.className = 'px-3 py-1.5 bg-amber-200 text-amber-900 rounded-lg shadow-sm flex items-center gap-1 border border-amber-300 cursor-pointer';
-        span.innerHTML = `${word} <i class="fas fa-times text-xs text-amber-600"></i>`;
+        span.className = "px-3 py-1.5 bg-amber-300 text-slate-900 rounded-xl shadow-sm flex items-center gap-1 cursor-pointer hover:bg-amber-400";
+        span.innerHTML = `${word} <i class="fas fa-times text-xs opacity-60"></i>`;
         span.onclick = () => {
-          playSound('pop');
           userBuiltSentence.splice(idx, 1);
-          renderSentenceDropzone();
-          // re-enable in wordbank
-          initSentenceBuilder(); // Simple reset bank view for clarity
+          renderSentenceBuilderChoiceRestore();
         };
         dz.appendChild(span);
       });
     }
 
+    function renderSentenceBuilderChoiceRestore() {
+      updateDropzone();
+      const currentChoices = builderData[currentBuilderIdx].choices;
+      const bankBtns = document.getElementById('wordBank').querySelectorAll('button');
+      bankBtns.forEach(btn => {
+        const word = btn.textContent;
+        const countInUser = userBuiltSentence.filter(w => w === word).length;
+        const countInChoice = currentChoices.filter(w => w === word).length;
+        if (countInUser < countInChoice) {
+          btn.disabled = false;
+          btn.classList.remove('opacity-40');
+        }
+      });
+    }
+
     function clearSentenceBuilder() {
-      initSentenceBuilder();
+      userBuiltSentence = [];
+      renderSentenceBuilderChoiceRestore();
     }
 
     function checkSentenceBuilder() {
       const data = builderData[currentBuilderIdx];
-      const built = userBuiltSentence.join(' ');
-      const target = data.targetSentence.join(' ');
+      const builtStr = userBuiltSentence.join(' ');
+      const targetStr = data.targetSentence.join(' ');
 
-      if (built === target) {
-        playSound('correct');
-        speakText(built);
+      if (builtStr === targetStr) {
+        speakText("Excellent! " + targetStr);
+        showToast("Correct sentence! 🎉", "✨");
         addStars(2);
-        showToast('Great sentence! +2 Stars ⭐⭐', '🎉');
-
-        currentBuilderIdx = (currentBuilderIdx + 1) % builderData.length;
         setTimeout(() => {
-          initSentenceBuilder();
+          currentBuilderIdx = (currentBuilderIdx + 1) % builderData.length;
+          renderSentenceBuilder();
         }, 1200);
       } else {
-        playSound('wrong');
-        showToast('Not quite right! Try putting words in order.', '💡');
+        speakText("Not quite right. Try again!");
+        showToast("Sentence doesn't match yet. Try ordering again!", "🤔");
       }
     }
 
     /* ============================================================
-       MODULE 3: ASSESSMENT (QUIZ)
+       ASSESSMENT (QUIZ) LOGIC
        ============================================================ */
     function startQuiz() {
-      quizIdx = 0;
+      quizCurrentIdx = 0;
       quizScore = 0;
       document.getElementById('quizStartScreen').classList.add('hidden');
       document.getElementById('quizResultScreen').classList.add('hidden');
@@ -1028,355 +979,308 @@
     }
 
     function renderQuizQuestion() {
-      const q = QUIZ_QUESTIONS[quizIdx];
-      quizSelectedOpt = null;
-
-      document.getElementById('quizCurrentNum').innerText = quizIdx + 1;
-      document.getElementById('quizProgressBar').style.width = `${((quizIdx + 1) / QUIZ_QUESTIONS.length) * 100}%`;
-      document.getElementById('quizQuestionText').innerText = q.question;
-      document.getElementById('quizMediaBox').innerText = q.media;
+      const q = QUIZ_QUESTIONS[quizCurrentIdx];
+      document.getElementById('quizCurrentNum').textContent = quizCurrentIdx + 1;
+      document.getElementById('quizProgressBar').style.width = `${((quizCurrentIdx + 1) / QUIZ_QUESTIONS.length) * 100}%`;
+      document.getElementById('quizQuestionText').textContent = q.question;
+      document.getElementById('quizMediaBox').innerHTML = q.media;
 
       const grid = document.getElementById('quizOptionsGrid');
       grid.innerHTML = '';
       document.getElementById('quizFeedbackBox').classList.add('hidden');
 
-      q.options.forEach((optText, optIdx) => {
+      q.options.forEach((opt, idx) => {
         const btn = document.createElement('button');
-        btn.className = 'quiz-opt-btn w-full p-4 bg-slate-50 border-2 border-slate-200 hover:border-indigo-400 rounded-2xl font-bold text-left text-slate-800 transition shadow-sm flex items-center gap-3';
-        btn.innerHTML = `<span class="w-8 h-8 rounded-full bg-slate-200 flex items-center justify-center text-slate-600 font-bold text-sm shrink-0">${String.fromCharCode(65 + optIdx)}</span> ${optText}`;
-        btn.onclick = () => selectQuizOption(optIdx, btn);
+        btn.className = "w-full p-4 bg-slate-50 border-2 border-slate-200 hover:border-indigo-400 rounded-2xl text-left font-bold text-slate-800 text-base md:text-lg transition shadow-sm quiz-option-btn flex items-center justify-between";
+        btn.innerHTML = `<span>${opt}</span> <i class="fas fa-circle text-xs text-slate-300"></i>`;
+        btn.onclick = () => selectQuizOption(idx, btn);
         grid.appendChild(btn);
       });
+
+      speakText(q.question);
     }
 
-    function selectQuizOption(optIdx, btnEl) {
-      if (quizSelectedOpt !== null) return; // Prevent double click
-      quizSelectedOpt = optIdx;
+    function speakCurrentQuizQuestion() {
+      const q = QUIZ_QUESTIONS[quizCurrentIdx];
+      speakText(q.question);
+    }
 
-      const q = QUIZ_QUESTIONS[quizIdx];
-      const feedbackBox = document.getElementById('quizFeedbackBox');
-      const feedbackText = document.getElementById('quizFeedbackText');
+    function selectQuizOption(selectedIdx, btn) {
+      const q = QUIZ_QUESTIONS[quizCurrentIdx];
+      const allBtns = document.querySelectorAll('.quiz-option-btn');
+      allBtns.forEach(b => b.disabled = true);
 
-      document.querySelectorAll('.quiz-opt-btn').forEach(b => b.classList.add('pointer-events-none'));
+      const fbBox = document.getElementById('quizFeedbackBox');
+      const fbText = document.getElementById('quizFeedbackText');
 
-      if (optIdx === q.correct) {
-        playSound('correct');
+      if (selectedIdx === q.correct) {
         quizScore++;
-        btnEl.classList.replace('bg-slate-50', 'bg-emerald-100');
-        btnEl.classList.replace('border-slate-200', 'border-emerald-500');
-        feedbackBox.className = 'p-4 rounded-2xl text-center font-bold flex justify-between items-center bg-emerald-100 text-emerald-800 border border-emerald-300';
-        feedbackText.innerText = 'Correct! Outstanding! 🌟';
+        addStars(2);
+        btn.className = "w-full p-4 bg-emerald-100 border-2 border-emerald-500 rounded-2xl text-left font-bold text-emerald-900 text-base md:text-lg shadow-sm flex items-center justify-between";
+        btn.querySelector('i').className = "fas fa-check-circle text-emerald-500 text-xl";
+        fbBox.className = "p-4 rounded-2xl text-center font-bold flex justify-between items-center bg-emerald-100 text-emerald-900 border border-emerald-300";
+        fbText.textContent = "Correct! Great job! ✨";
+        speakText("Correct!");
       } else {
-        playSound('wrong');
-        btnEl.classList.replace('bg-slate-50', 'bg-rose-100');
-        btnEl.classList.replace('border-slate-200', 'border-rose-400');
-        
-        // Highlight correct one
-        const allBtns = document.querySelectorAll('.quiz-opt-btn');
-        allBtns[q.correct].classList.add('bg-emerald-100', 'border-emerald-500');
-
-        feedbackBox.className = 'p-4 rounded-2xl text-center font-bold flex justify-between items-center bg-rose-100 text-rose-800 border border-rose-300';
-        feedbackText.innerText = `Incorrect! The answer was: "${q.options[q.correct]}"`;
+        btn.className = "w-full p-4 bg-rose-100 border-2 border-rose-500 rounded-2xl text-left font-bold text-rose-900 text-base md:text-lg shadow-sm flex items-center justify-between";
+        btn.querySelector('i').className = "fas fa-times-circle text-rose-500 text-xl";
+        allBtns[q.correct].className = "w-full p-4 bg-emerald-100 border-2 border-emerald-500 rounded-2xl text-left font-bold text-emerald-900 text-base md:text-lg shadow-sm flex items-center justify-between";
+        fbBox.className = "p-4 rounded-2xl text-center font-bold flex justify-between items-center bg-amber-100 text-amber-900 border border-amber-300";
+        fbText.textContent = `Nice try! Correct answer: "${q.options[q.correct]}"`;
+        speakText("That's okay. Keep going!");
       }
-
-      feedbackBox.classList.remove('hidden');
+      fbBox.classList.remove('hidden');
     }
 
     function nextQuizQuestion() {
-      quizIdx++;
-      if (quizIdx < QUIZ_QUESTIONS.length) {
+      quizCurrentIdx++;
+      if (quizCurrentIdx < QUIZ_QUESTIONS.length) {
         renderQuizQuestion();
       } else {
         finishQuiz();
       }
     }
 
-    function speakCurrentQuizQuestion() {
-      const q = QUIZ_QUESTIONS[quizIdx];
-      speakText(q.question);
-    }
-
     function finishQuiz() {
       document.getElementById('quizActiveScreen').classList.add('hidden');
       document.getElementById('quizResultScreen').classList.remove('hidden');
+      document.getElementById('quizFinalScore').textContent = `${quizScore} / ${QUIZ_QUESTIONS.length}`;
 
-      const scoreText = `${quizScore} / ${QUIZ_QUESTIONS.length}`;
-      document.getElementById('quizFinalScore').innerText = scoreText;
-
-      addStars(quizScore * 2);
-
-      // Star rating display
-      let starsHtml = '';
-      for (let i = 0; i < QUIZ_QUESTIONS.length; i++) {
-        if (i < quizScore) {
-          starsHtml += '<i class="fas fa-star text-amber-400"></i>';
-        } else {
-          starsHtml += '<i class="far fa-star text-slate-300"></i>';
-        }
+      const starsContainer = document.getElementById('quizStarsDisplay');
+      starsContainer.innerHTML = '';
+      for (let i = 0; i < 5; i++) {
+        const star = document.createElement('i');
+        star.className = i < quizScore ? "fas fa-star text-amber-400" : "far fa-star text-slate-300";
+        starsContainer.appendChild(star);
       }
-      document.getElementById('quizStarsDisplay').innerHTML = starsHtml;
 
       const msg = document.getElementById('quizMotivationalMsg');
       if (quizScore === 5) {
-        msg.innerText = "Superb! You are an English Master! 🏆";
+        msg.textContent = "🌟 Perfect Score! You are an English Superstar!";
+        speakText("Perfect score! You are an English Superstar!");
       } else if (quizScore >= 3) {
-        msg.innerText = "Good Job! Keep practicing your vocabulary! 👍";
+        msg.textContent = "👍 Good Job! You did very well!";
+        speakText("Good Job! You did very well!");
       } else {
-        msg.innerText = "Keep practicing! Review the materials tab again! 💪";
+        msg.textContent = "💪 Keep practicing! You can do it!";
+        speakText("Keep practicing! You can do it!");
       }
     }
 
     /* ============================================================
-       MODULE 4: MINI GAME (COLOR BAG CATCHER)
+       MINI GAME LOGIC ("Color Bag Catcher")
        ============================================================ */
-    let canvas, ctx;
-    let gameLoopReq;
-    let gameActive = false;
-    let gameScore = 0;
-    let gameTimer = 30;
-    let gameTimerInterval;
-
-    // Player Bag Object
-    const playerBag = {
-      x: 0,
-      y: 0,
-      width: 70,
-      height: 60,
-      targetColor: 'Blue',
-      colorHex: '#118AB2',
-      speed: 8
-    };
-
-    let fallingItems = [];
-
-    function initGameCanvas() {
+    function initCanvas() {
       canvas = document.getElementById('gameCanvas');
       ctx = canvas.getContext('2d');
-      
-      // Dynamic Canvas Sizing
-      canvas.width = canvas.parentElement.clientWidth;
-      canvas.height = canvas.parentElement.clientHeight;
+      resizeCanvas();
+      window.addEventListener('resize', resizeCanvas);
 
-      playerBag.x = canvas.width / 2 - playerBag.width / 2;
-      playerBag.y = canvas.height - playerBag.height - 10;
+      // Keyboard Listeners
+      window.addEventListener('keydown', e => keys[e.code] = true);
+      window.addEventListener('keyup', e => keys[e.code] = false);
 
-      // Event Listeners for Touch/Keyboard
-      window.addEventListener('keydown', handleKeyDown);
-      
-      // Touch drag on canvas
-      canvas.addEventListener('touchmove', (e) => {
-        if (!gameActive) return;
-        const rect = canvas.getBoundingClientRect();
-        const touchX = e.touches[0].clientX - rect.left;
-        playerBag.x = touchX - playerBag.width / 2;
-      });
-
-      // Onscreen control buttons
+      // Mobile Buttons
       const btnLeft = document.getElementById('btnLeft');
       const btnRight = document.getElementById('btnRight');
       if (btnLeft && btnRight) {
-        btnLeft.onpointerdown = () => playerBag.x -= 30;
-        btnRight.onpointerdown = () => playerBag.x += 30;
+        btnLeft.ontouchstart = (e) => { e.preventDefault(); keys['ArrowLeft'] = true; };
+        btnLeft.ontouchend = (e) => { e.preventDefault(); keys['ArrowLeft'] = false; };
+        btnRight.ontouchstart = (e) => { e.preventDefault(); keys['ArrowRight'] = true; };
+        btnRight.ontouchend = (e) => { e.preventDefault(); keys['ArrowRight'] = false; };
       }
+
+      // Touch / Mouse Dragging Canvas
+      let isDragging = false;
+      const updateTouchX = (clientX) => {
+        const rect = canvas.getBoundingClientRect();
+        playerBag.x = clientX - rect.left - playerBag.width / 2;
+      };
+      canvas.addEventListener('mousedown', e => { isDragging = true; updateTouchX(e.clientX); });
+      canvas.addEventListener('mousemove', e => { if (isDragging) updateTouchX(e.clientX); });
+      canvas.addEventListener('mouseup', () => isDragging = false);
+      canvas.addEventListener('touchstart', e => { isDragging = true; updateTouchX(e.touches[0].clientX); });
+      canvas.addEventListener('touchmove', e => { if (isDragging) updateTouchX(e.touches[0].clientX); });
+      canvas.addEventListener('touchend', () => isDragging = false);
     }
 
-    function handleKeyDown(e) {
-      if (!gameActive) return;
-      if (e.key === 'ArrowLeft') playerBag.x -= 25;
-      if (e.key === 'ArrowRight') playerBag.x += 25;
+    function resizeCanvas() {
+      if (!canvas) return;
+      canvas.width = canvas.clientWidth;
+      canvas.height = canvas.clientHeight;
+      playerBag.x = canvas.width / 2 - playerBag.width / 2;
     }
 
     function startGame() {
-      gameActive = true;
-      gameScore = 0;
-      gameTimer = 30;
-      fallingItems = [];
-
       document.getElementById('gameStartOverlay').classList.add('hidden');
       document.getElementById('gameOverOverlay').classList.add('hidden');
-      document.getElementById('gameScoreText').innerText = gameScore;
-      document.getElementById('gameTimeText').innerText = `${gameTimer}s`;
+      gameScore = 0;
+      gameTimer = 30;
+      gameRunning = true;
+      fallingItems = [];
+      targetGameColor = gameColors[Math.floor(Math.random() * gameColors.length)];
 
-      clearInterval(gameTimerInterval);
-      gameTimerInterval = setInterval(() => {
+      document.getElementById('gameScoreText').textContent = gameScore;
+      document.getElementById('gameTimeText').textContent = gameTimer + 's';
+
+      if (gameInterval) clearInterval(gameInterval);
+      gameInterval = setInterval(() => {
         gameTimer--;
-        document.getElementById('gameTimeText').innerText = `${gameTimer}s`;
+        document.getElementById('gameTimeText').textContent = gameTimer + 's';
         if (gameTimer <= 0) {
           endGame();
         }
       }, 1000);
 
-      // Randomize Bag target color every few seconds
-      setRandomBagColor();
+      speakText(`Catch ${targetGameColor.name} items!`);
+      showToast(`Catch ${targetGameColor.name} items with your bag!`, "🎒");
 
-      cancelAnimationFrame(gameLoopReq);
-      gameLoop();
-    }
-
-    function setRandomBagColor() {
-      const colors = [
-        { name: 'Red', hex: '#EF476F' },
-        { name: 'Blue', hex: '#118AB2' },
-        { name: 'Yellow', hex: '#FFD166' },
-        { name: 'Green', hex: '#06D6A0' },
-        { name: 'Pink', hex: '#FF69B4' },
-        { name: 'Purple', hex: '#8338EC' },
-        { name: 'Orange', hex: '#FB5607' }
-      ];
-      const picked = colors[Math.floor(Math.random() * colors.length)];
-      playerBag.targetColor = picked.name;
-      playerBag.colorHex = picked.hex;
+      requestAnimationFrame(gameLoop);
     }
 
     function spawnFallingItem() {
       if (Math.random() < 0.04) {
-        const items = [
-          { emoji: '📘', color: 'Blue' },
-          { emoji: '🖊️', color: 'Red' },
-          { emoji: '✏️', color: 'Yellow' },
-          { emoji: '📐', color: 'Green' },
-          { emoji: '🎒', color: 'Purple' }
-        ];
-        const item = items[Math.floor(Math.random() * items.length)];
+        const c = gameColors[Math.floor(Math.random() * gameColors.length)];
         fallingItems.push({
           x: Math.random() * (canvas.width - 40),
           y: -40,
-          speed: 2 + Math.random() * 2.5,
-          emoji: item.emoji,
-          color: item.color
+          speed: 2.5 + Math.random() * 2,
+          colorObj: c
         });
       }
     }
 
     function gameLoop() {
-      if (!gameActive) return;
+      if (!gameRunning) return;
 
+      // Update position
+      if (keys['ArrowLeft'] || keys['KeyA']) playerBag.x -= 6;
+      if (keys['ArrowRight'] || keys['KeyD']) playerBag.x += 6;
+      playerBag.x = Math.max(0, Math.min(canvas.width - playerBag.width, playerBag.x));
+
+      // Clear Canvas
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      // Keep player inside canvas
-      if (playerBag.x < 0) playerBag.x = 0;
-      if (playerBag.x > canvas.width - playerBag.width) playerBag.x = canvas.width - playerBag.width;
+      // Draw Target Hint on Canvas
+      ctx.fillStyle = "#334155";
+      ctx.font = "bold 16px Nunito";
+      ctx.textAlign = "center";
+      ctx.fillText(`Target: Catch ${targetGameColor.name.toUpperCase()} items!`, canvas.width / 2, 30);
 
       // Draw Player Bag
-      ctx.fillStyle = playerBag.colorHex;
+      ctx.fillStyle = targetGameColor.hex;
       ctx.beginPath();
-      ctx.roundRect(playerBag.x, playerBag.y, playerBag.width, playerBag.height, 16);
+      ctx.roundRect(playerBag.x, canvas.height - playerBag.height - 10, playerBag.width, playerBag.height, 12);
       ctx.fill();
-      ctx.lineWidth = 3;
-      ctx.strokeStyle = '#ffffff';
-      ctx.stroke();
+      ctx.fillStyle = "#FFF";
+      ctx.font = "24px sans-serif";
+      ctx.fillText("🎒", playerBag.x + playerBag.width / 2, canvas.height - 25);
 
-      // Bag Label Text
-      ctx.fillStyle = '#ffffff';
-      ctx.font = 'bold 12px Fredoka';
-      ctx.textAlign = 'center';
-      ctx.fillText(`${playerBag.targetColor} Bag`, playerBag.x + playerBag.width / 2, playerBag.y + 35);
-
-      // Spawn & Update Items
+      // Update & Draw Falling Items
       spawnFallingItem();
-
       for (let i = fallingItems.length - 1; i >= 0; i--) {
         const item = fallingItems[i];
         item.y += item.speed;
 
-        // Draw item emoji
-        ctx.font = '32px sans-serif';
-        ctx.fillText(item.emoji, item.x, item.y);
+        // Draw item bubble
+        ctx.fillStyle = item.colorObj.hex;
+        ctx.beginPath();
+        ctx.arc(item.x + 20, item.y + 20, 20, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.fillStyle = "#FFF";
+        ctx.font = "18px sans-serif";
+        ctx.fillText(item.colorObj.emoji, item.x + 20, item.y + 26);
 
-        // Check collision with bag
+        // Collision Check
+        const bagY = canvas.height - playerBag.height - 10;
         if (
-          item.y >= playerBag.y &&
-          item.y <= playerBag.y + playerBag.height &&
-          item.x >= playerBag.x - 10 &&
-          item.x <= playerBag.x + playerBag.width + 10
+          item.y + 40 >= bagY &&
+          item.x + 40 >= playerBag.x &&
+          item.x <= playerBag.x + playerBag.width
         ) {
-          if (item.color === playerBag.targetColor) {
-            playSound('correct');
+          if (item.colorObj.name === targetGameColor.name) {
             gameScore += 10;
-            document.getElementById('gameScoreText').innerText = gameScore;
             addStars(1);
+            showToast("+10 Points!", "🌟");
           } else {
-            playSound('wrong');
+            gameScore = Math.max(0, gameScore - 5);
           }
+          document.getElementById('gameScoreText').textContent = gameScore;
           fallingItems.splice(i, 1);
-          // Randomize bag color occasionally after catch
-          if (Math.random() < 0.4) setRandomBagColor();
-          continue;
-        }
-
-        // Remove if past screen
-        if (item.y > canvas.height + 40) {
+        } else if (item.y > canvas.height) {
           fallingItems.splice(i, 1);
         }
       }
 
-      gameLoopReq = requestAnimationFrame(gameLoop);
+      requestAnimationFrame(gameLoop);
     }
 
     function endGame() {
-      gameActive = false;
-      clearInterval(gameTimerInterval);
-      cancelAnimationFrame(gameLoopReq);
-
-      document.getElementById('finalGameScore').innerText = gameScore;
+      gameRunning = false;
+      clearInterval(gameInterval);
+      document.getElementById('finalGameScore').textContent = gameScore;
       document.getElementById('gameOverOverlay').classList.remove('hidden');
+      speakText(`Game Over! You scored ${gameScore} points!`);
     }
 
     /* ============================================================
-       MODULE 5: REFLECTION (REFLEKSI)
+       REFLECTION & UTILS
        ============================================================ */
     function selectMood(mood) {
-      playSound('pop');
-      selectedMood = mood;
-      document.querySelectorAll('.mood-btn').forEach(b => b.classList.remove('border-amber-400', 'bg-amber-50'));
-      const activeMoodBtn = document.getElementById(`mood-${mood}`);
-      if (activeMoodBtn) {
-        activeMoodBtn.classList.add('border-amber-400', 'bg-amber-50');
-      }
-      showToast(`Mood saved: ${mood}! 😄`, '🌟');
+      document.querySelectorAll('.mood-btn').forEach(btn => btn.classList.remove('border-amber-400', 'bg-amber-50'));
+      const sel = document.getElementById(`mood-${mood}`);
+      if (sel) sel.classList.add('border-amber-400', 'bg-amber-50');
+      showToast("Thank you for sharing your feeling!", "😊");
     }
 
     function updateReflectionProgress() {
-      playSound('pop');
       const checks = document.querySelectorAll('.refl-check:checked').length;
-      if (checks > 0) {
-        addStars(1);
+      if (checks === 4) {
+        showToast("Awesome! You completed all self-assessment checks!", "🌟");
+        addStars(3);
       }
     }
 
     function generateCertificate() {
-      playSound('correct');
       const nameInput = document.getElementById('studentNameInput').value.trim();
-      const studentName = nameInput || 'Super Student';
+      if (!nameInput) {
+        showToast("Please enter your name first!", "✏️");
+        return;
+      }
 
-      document.getElementById('certName').innerText = studentName;
-      document.getElementById('certStarsCount').innerText = `Stars Earned: ${globalStars} ⭐`;
-      
-      const certBox = document.getElementById('certificateBox');
-      certBox.classList.remove('hidden');
-      certBox.scrollIntoView({ behavior: 'smooth' });
+      document.getElementById('certName').textContent = nameInput;
+      document.getElementById('certStarsCount').textContent = `Total Stars Earned: ${globalStars} ⭐`;
+      document.getElementById('certificateBox').classList.remove('hidden');
+      showToast("Certificate generated!", "📜");
+      speakText(`Congratulations ${nameInput}! Here is your certificate!`);
+    }
 
-      showToast('Certificate generated! Outstanding achievement!', '🏆');
+    function addStars(num) {
+      globalStars += num;
+      document.getElementById('globalStars').textContent = globalStars;
+    }
+
+    function showToast(message, icon = "✨") {
+      const toast = document.getElementById('toast');
+      document.getElementById('toastIcon').textContent = icon;
+      document.getElementById('toastMessage').textContent = message;
+
+      toast.classList.remove('translate-y-20', 'opacity-0');
+      toast.classList.add('translate-y-0', 'opacity-100');
+
+      setTimeout(() => {
+        toast.classList.remove('translate-y-0', 'opacity-100');
+        toast.classList.add('translate-y-20', 'opacity-0');
+      }, 2500);
     }
 
     /* ============================================================
-       INITIALIZATION ON PAGE LOAD
+       INITIALIZATION
        ============================================================ */
     window.onload = function() {
-      renderMaterials('all');
+      filterMaterials('all');
       initMatchingGame();
-      initSentenceBuilder();
-      initGameCanvas();
     };
-
-    // Responsive Canvas Resize Listener
-    window.addEventListener('resize', () => {
-      if (canvas) {
-        canvas.width = canvas.parentElement.clientWidth;
-        canvas.height = canvas.parentElement.clientHeight;
-        playerBag.y = canvas.height - playerBag.height - 10;
-      }
-    });
   </script>
 </body>
 </html>
